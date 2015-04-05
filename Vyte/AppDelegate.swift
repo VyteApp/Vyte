@@ -19,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        //if (checkUserNotLogedIn()) {
+            //user not logged in
+        //    var loginViewController = CustomLoginViewController()
+        //    self.window?.rootViewController?.presentViewController(loginViewController, animated: false, completion: nil)
+        //}
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()

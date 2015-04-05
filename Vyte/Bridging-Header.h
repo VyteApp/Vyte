@@ -9,7 +9,9 @@
 #ifndef Vyte_Bridging_Header_h
 #define Vyte_Bridging_Header_h
 
-#import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+//#import <Parse/Parse.h>
+//#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <FacebookSDK/FacebookSDK.h>
+// #import <Bolts/BFTask.h>
 
 #endif

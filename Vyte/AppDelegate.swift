@@ -27,7 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
+        
+        FBLoginView.self
+        FBProfilePictureView.self
+        
         return true
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {
+    var wasHandled:Bool = FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
+    return wasHandled
     }
 
     

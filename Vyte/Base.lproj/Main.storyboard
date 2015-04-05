@@ -94,10 +94,10 @@
             </objects>
             <point key="canvasLocation" x="-1586" y="0.0"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="Yla-yi-29y">
             <objects>
-                <viewController id="xFW-R5-XxE" sceneMemberID="viewController">
+                <viewController id="xFW-R5-XxE" customClass="LoginViewController" customModule="Vyte" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ai1-o8-4hr"/>
                         <viewControllerLayoutGuide type="bottom" id="j3A-6p-TAZ"/>
@@ -105,9 +105,24 @@
                     <view key="view" contentMode="scaleToFill" id="5n8-uh-2M0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2BC-ng-6oX" customClass="Login">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8t-EB-fdP" customClass="FBLoginView">
+                                        <rect key="frame" x="200" y="250" width="200" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="EjR-cd-Cpf"/>
+                    <connections>
+                        <outlet property="fbLoginView" destination="x8t-EB-fdP" id="tTZ-4x-S45"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1hl-UY-8BN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -86,10 +86,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF9A1E931AD1D9BE008E35A3 /* FBSDKLoginKit.framework in Frameworks */,
+				FF9A1E8F1AD1D986008E35A3 /* FBSDKCoreKit.framework in Frameworks */,
+				FF9A1E911AD1D9AF008E35A3 /* FBSDKShareKit.framework in Frameworks */,
 				FF9A1E8D1AD1D904008E35A3 /* libsqlite3.dylib in Frameworks */,
 				FF9A1E8B1AD1D8F8008E35A3 /* libz.dylib in Frameworks */,
-				FF9A1E931AD1D9BE008E35A3 /* FBSDKLoginKit.framework in Frameworks */,
-				FF9A1E911AD1D9AF008E35A3 /* FBSDKShareKit.framework in Frameworks */,
 				FF9A1E891AD1D8E8008E35A3 /* SystemConfiguration.framework in Frameworks */,
 				FF9A1E871AD1D8DE008E35A3 /* StoreKit.framework in Frameworks */,
 				FF9A1E851AD1D8D4008E35A3 /* Social.framework in Frameworks */,
@@ -101,7 +102,6 @@
 				FF9A1E791AD1D892008E35A3 /* AudioToolbox.framework in Frameworks */,
 				FF9A1E771AD1D885008E35A3 /* Accounts.framework in Frameworks */,
 				FF9A1E751AD1D86A008E35A3 /* Bolts.framework in Frameworks */,
-				FF9A1E8F1AD1D986008E35A3 /* FBSDKCoreKit.framework in Frameworks */,
 				FF9A1E731AD1D84D008E35A3 /* Parse.framework in Frameworks */,
 				0C1AB4261AD1C02900395259 /* MapKit.framework in Frameworks */,
 			);

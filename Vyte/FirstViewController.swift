@@ -7,11 +7,19 @@
 //
 
 import UIKit
+import MapKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, MKMapViewDelegate {
+
+    @IBOutlet weak var mapView: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+        mapView.showsPointsOfInterest = true
+        mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
+        // Add events to map view with   mapView.annotations.append(<#newElement: T#>)
         // Do any additional setup after loading the view, typically from a nib.
     }
 

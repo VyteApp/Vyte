@@ -19,7 +19,13 @@ class SecondViewController: UIViewController {
             println("result: \(result)")
             } as FBRequestHandler;
         
-        FBRequestConnection.startWithGraphPath("/me/events", completionHandler: completionHandler)
+        if let session = PFFacebookUtils.session() {
+            var token = session.accessTokenData.accessToken
+            if session.isOpen && token != nil {
+                FBRequestConnection.startWithGraphPath("/me/profile", completionHandler: completionHandler)
+
+            }
+        }
     }
 
     override func viewDidLoad() {

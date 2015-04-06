@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
         
-        FBLoginView.self
+        //FBLoginView.self
         Parse.setApplicationId("MhPPlRF7WKIPFJy0OemYxyjKPul1Zprsya9bDeUu", clientKey:"75LDtIaABm80CkOrg52oygHiWI5G9c0nd5UrtUUo")
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions?, block: nil)
         PFFacebookUtils.initializeFacebook()
@@ -36,10 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {
-    var wasHandled:Bool = FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
-    return wasHandled
-    }
+    //func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {
+    //var wasHandled:Bool = FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
+    //return wasHandled
+    //}
 
     
     
@@ -72,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         annotation: AnyObject?) -> Bool {
             return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication,
                 withSession:PFFacebookUtils.session())
+            
     }
 
 

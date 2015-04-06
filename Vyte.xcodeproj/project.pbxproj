@@ -81,7 +81,6 @@
 				0CC59FB51AC13564001EDE1F /* VyteTests */,
 				0CC59F9C1AC13564001EDE1F /* Products */,
 				E916EC71F24C8B5234A1C24A /* Pods */,
-				5CFA5B531CF8A0757E9001B7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +147,7 @@
 		E916EC71F24C8B5234A1C24A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				5CFA5B531CF8A0757E9001B7 /* Frameworks */,
 				5C6BEC28FD17D0BE0F648282 /* Pods.debug.xcconfig */,
 				B29D1119C63F692743C52D8F /* Pods.release.xcconfig */,
 			);

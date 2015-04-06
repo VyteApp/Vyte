@@ -10,7 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController, FBLoginViewDelegate {
 
-    let permissions = ["public profile"]
+    let permissions = ["public_profile"]
     
     @IBAction func fbLoginButton(sender: UIButton) {
         PFFacebookUtils.logInWithPermissions(self.permissions, {

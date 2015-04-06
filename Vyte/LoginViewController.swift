@@ -13,34 +13,9 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
     let permissions = ["public_profile", "user_friends", "user_about_me"]
     
     @IBOutlet var fbLoginView: FBLoginView!
-    
-    @IBAction func fbLoginButton(sender: AnyObject) {
-        NSLog("clicked")
-        PFFacebookUtils.logInWithPermissions(self.permissions, {
-            (user: PFUser!, error: NSError!) -> Void in
-            if user == nil {
-                NSLog("The user cancelled the Facebook login.")
-            } else {
-                if user.isNew {
-                    //TODO: Save user's info (e.g. name, fbID, profile pic, etc)
-                    NSLog("User signed up and logged in through Facebook: \(user)")
-                } else {
-                    NSLog("User logged in through Facebook: \(user)")
-                }
-                if !PFFacebookUtils.isLinkedWithUser(user) {
-                    PFFacebookUtils.linkUser(user, permissions:nil, {
-                    (succeeded: Bool!, error: NSError!) -> Void in
-                    if (succeeded.boolValue) {
-                        println("Linked existing user with Facebook.")
-                    }
-                    })}
-                self.loginViewShowingLoggedInUser(self.fbLoginView)
-            }
-
-        })
-    }
 
     func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
+        self.saveUserNameAndFbId()
         performSegueWithIdentifier("Push", sender: self)
     }
     
@@ -54,6 +29,64 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func saveUserNameAndFbId() {
+        if (PFUser.currentUser() == nil || !PFFacebookUtils.isLinkedWithUser(PFUser.currentUser())){
+            login()
+            return
+        }
+        else if let fbId = PFUser.currentUser()["fbId"] as? String {
+            if !fbId.isEmpty {
+                println("User already has FB ID set.")
+                return
+            }
+        }
+        if let session = PFFacebookUtils.session() {
+            if session.isOpen {
+                NSLog("Session is Open")
+                FBRequestConnection.startForMeWithCompletionHandler({ (connection: FBRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
+                    if error != nil {
+                        NSLog(error.description)
+                    } else {
+                        if (PFUser.currentUser() != nil){
+                            //TODO: Save profile pic?
+                            NSLog("Username and fbID being set")
+                            PFUser.currentUser().username = result.name
+                            PFUser.currentUser().setValue(result.objectID, forKey: "fbId")
+                            PFUser.currentUser().save()
+                        } else {
+                            NSLog("User is nil...")
+                        }
+                    }
+                })
+            }
+            else {NSLog("Session is not Open")}
+        } else {NSLog("Session is nil")}
+    }
+    
+    func login() {
+        PFFacebookUtils.logInWithPermissions(self.permissions, {
+            (user: PFUser!, error: NSError!) -> Void in
+            if user == nil {
+                NSLog("The user cancelled the Facebook login.")
+            } else {
+                if user.isNew {
+                    NSLog("User signed up and logged in through Facebook: \(user)")
+                } else {
+                    NSLog("User logged in through Facebook: \(user)")
+                }
+                if !PFFacebookUtils.isLinkedWithUser(user) {
+                    PFFacebookUtils.linkUser(user, permissions:nil, {
+                        (succeeded: Bool!, error: NSError!) -> Void in
+                        if (succeeded.boolValue) {
+                            println("Linked existing user with Facebook.")
+                        }
+                    })
+                }
+                self.saveUserNameAndFbId()
+            }
+            
+        })
+    }
     
     
     

@@ -9,26 +9,44 @@
 import UIKit
 
 class LoginViewController: UIViewController, FBLoginViewDelegate {
-
-    let permissions = ["public_profile"]
     
-    @IBAction func fbLoginButton(sender: UIButton) {
+    let permissions = ["public_profile", "user_friends", "user_about_me"]
+    
+    @IBOutlet var fbLoginView: FBLoginView!
+    
+    @IBAction func fbLoginButton(sender: AnyObject) {
+        NSLog("clicked")
         PFFacebookUtils.logInWithPermissions(self.permissions, {
             (user: PFUser!, error: NSError!) -> Void in
             if user == nil {
-                NSLog("Uh oh. The user cancelled the Facebook login.")
-            } else if user.isNew {
-                NSLog("User signed up and logged in through Facebook! \(user)")
+                NSLog("The user cancelled the Facebook login.")
             } else {
-                NSLog("User logged in through Facebook! \(user)")
+                if user.isNew {
+                    //TODO: Save user's info (e.g. name, fbID, profile pic, etc)
+                    NSLog("User signed up and logged in through Facebook: \(user)")
+                } else {
+                    NSLog("User logged in through Facebook: \(user)")
+                }
+                if !PFFacebookUtils.isLinkedWithUser(user) {
+                    PFFacebookUtils.linkUser(user, permissions:nil, {
+                    (succeeded: Bool!, error: NSError!) -> Void in
+                    if (succeeded.boolValue) {
+                        println("Linked existing user with Facebook.")
+                    }
+                    })}
+                self.loginViewShowingLoggedInUser(self.fbLoginView)
             }
+
         })
+    }
+
+    func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
+        performSegueWithIdentifier("Push", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+        fbLoginView.delegate = self
     }
     
     override func didReceiveMemoryWarning() {

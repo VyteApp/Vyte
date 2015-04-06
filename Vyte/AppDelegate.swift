@@ -16,31 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var locationManager: CLLocationManager?
 
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        //if (checkUserNotLogedIn()) {
-            //user not logged in
-        //    var loginViewController = CustomLoginViewController()
-        //    self.window?.rootViewController?.presentViewController(loginViewController, animated: false, completion: nil)
-        //}
+
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
         
-        //FBLoginView.self
         Parse.setApplicationId("MhPPlRF7WKIPFJy0OemYxyjKPul1Zprsya9bDeUu", clientKey:"75LDtIaABm80CkOrg52oygHiWI5G9c0nd5UrtUUo")
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions?, block: nil)
         PFFacebookUtils.initializeFacebook()
-        
+
         return true
     }
-    
-    //func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {
-    //var wasHandled:Bool = FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
-    //return wasHandled
-    //}
-
     
     
     func applicationWillResignActive(application: UIApplication) {
@@ -64,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        PFUser.logOut()
     }
     
     func application(application: UIApplication,

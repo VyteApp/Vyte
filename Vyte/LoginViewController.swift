@@ -10,7 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController, FBLoginViewDelegate {
     
-    let permissions = ["public_profile", "user_friends", "user_about_me"]
+    let permissions = ["public_profile", "user_friends", "user_about_me", "user_events"]
     
     @IBOutlet var fbLoginView: FBLoginView!
     
@@ -28,7 +28,7 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
                     NSLog("User logged in through Facebook: \(user)")
                 }
                 if !PFFacebookUtils.isLinkedWithUser(user) {
-                    PFFacebookUtils.linkUser(user, permissions:nil, {
+                    PFFacebookUtils.linkUser(user, permissions: self.permissions, { // permissions:nil
                     (succeeded: Bool!, error: NSError!) -> Void in
                     if (succeeded.boolValue) {
                         println("Linked existing user with Facebook.")

@@ -9,10 +9,25 @@
 import UIKit
 
 class SecondViewController: UIViewController {
+    
+    let user = PFUser.currentUser()
+    
+    
+    func getFacebookEvents() {
+        var completionHandler = {
+            connection, result, error in
+            println("result: \(result)")
+            } as FBRequestHandler;
+        
+        FBRequestConnection.startWithGraphPath("/me/events", completionHandler: completionHandler)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        getFacebookEvents()
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

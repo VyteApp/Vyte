@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C1AB4261AD1C02900395259 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1AB4251AD1C02900395259 /* MapKit.framework */; };
-		0C1B7C181AD1CF0B00C4B192 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B7C171AD1CF0B00C4B192 /* ThirdViewController.swift */; };
+		0C1B7C181AD1CF0B00C4B192 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B7C171AD1CF0B00C4B192 /* ProfileViewController.swift */; };
 		0C1B7C1A1AD1D3F700C4B192 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */; };
 		0CC59FA11AC13564001EDE1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA01AC13564001EDE1F /* AppDelegate.swift */; };
 		0CC59FA31AC13564001EDE1F /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA21AC13564001EDE1F /* FirstViewController.swift */; };
@@ -34,7 +34,7 @@
 /* Begin PBXFileReference section */
 		007A4CF752FB60E83F7E7E90 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C1AB4251AD1C02900395259 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		0C1B7C171AD1CF0B00C4B192 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		0C1B7C171AD1CF0B00C4B192 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0CC59F9B1AC13564001EDE1F /* Vyte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vyte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC59F9F1AC13564001EDE1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 			children = (
 				FF9A1E941AD1DB29008E35A3 /* Bridging-Header.h */,
 				0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */,
-				0C1B7C171AD1CF0B00C4B192 /* ThirdViewController.swift */,
+				0C1B7C171AD1CF0B00C4B192 /* ProfileViewController.swift */,
 				0CC59FA01AC13564001EDE1F /* AppDelegate.swift */,
 				0CC59FA21AC13564001EDE1F /* FirstViewController.swift */,
 				0CC59FA41AC13564001EDE1F /* SecondViewController.swift */,
@@ -290,7 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CC59FA51AC13564001EDE1F /* SecondViewController.swift in Sources */,
-				0C1B7C181AD1CF0B00C4B192 /* ThirdViewController.swift in Sources */,
+				0C1B7C181AD1CF0B00C4B192 /* ProfileViewController.swift in Sources */,
 				0CC59FA11AC13564001EDE1F /* AppDelegate.swift in Sources */,
 				0C1B7C1A1AD1D3F700C4B192 /* LoginViewController.swift in Sources */,
 				0CC59FA31AC13564001EDE1F /* FirstViewController.swift in Sources */,

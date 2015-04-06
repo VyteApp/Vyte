@@ -63,7 +63,7 @@
         <!--Profile-->
         <scene sceneID="PfM-xR-oTv">
             <objects>
-                <viewController id="LhU-vU-vwf" sceneMemberID="viewController">
+                <viewController id="LhU-vU-vwf" customClass="ProfileViewController" customModule="Vyte" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sca-CN-wm3"/>
                         <viewControllerLayoutGuide type="bottom" id="VbY-km-mbS"/>
@@ -71,13 +71,60 @@
                     <view key="view" contentMode="scaleToFill" id="m69-cV-u5Z">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aad-nB-cqc">
+                                <rect key="frame" x="246" y="84" width="148" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="148" id="muD-Zj-l54"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xjH-Qp-SMI">
+                                <rect key="frame" x="65" y="241" width="466" height="281"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJb-Ox-Mzj">
+                                <rect key="frame" x="246" y="197" width="109" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="109" id="u1v-ab-y9G"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="et4-mj-8RU">
+                                <rect key="frame" x="65" y="28" width="150" height="150"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Aad-nB-cqc" firstAttribute="top" secondItem="Sca-CN-wm3" secondAttribute="bottom" constant="64" id="3yT-7e-b4i"/>
+                            <constraint firstItem="xjH-Qp-SMI" firstAttribute="top" secondItem="HJb-Ox-Mzj" secondAttribute="bottom" constant="23" id="85w-Yc-CfF"/>
+                            <constraint firstItem="xjH-Qp-SMI" firstAttribute="top" secondItem="et4-mj-8RU" secondAttribute="bottom" constant="63" id="H4M-dW-z5X"/>
+                            <constraint firstItem="xjH-Qp-SMI" firstAttribute="leading" secondItem="et4-mj-8RU" secondAttribute="leading" id="Qpq-pj-JiF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xjH-Qp-SMI" secondAttribute="trailing" constant="53" id="Vvk-jJ-uRE"/>
+                            <constraint firstItem="Aad-nB-cqc" firstAttribute="leading" secondItem="HJb-Ox-Mzj" secondAttribute="leading" id="YNq-lg-yt3"/>
+                            <constraint firstItem="et4-mj-8RU" firstAttribute="leading" secondItem="m69-cV-u5Z" secondAttribute="leadingMargin" constant="49" id="b0U-NL-LPJ"/>
+                            <constraint firstItem="HJb-Ox-Mzj" firstAttribute="centerX" secondItem="m69-cV-u5Z" secondAttribute="centerX" id="fTQ-UT-m6V"/>
+                            <constraint firstItem="et4-mj-8RU" firstAttribute="top" secondItem="Sca-CN-wm3" secondAttribute="bottom" constant="8" symbolic="YES" id="iaz-Mx-vKl"/>
+                            <constraint firstItem="VbY-km-mbS" firstAttribute="top" secondItem="xjH-Qp-SMI" secondAttribute="bottom" constant="29" id="igb-7d-V9S"/>
+                            <constraint firstItem="Aad-nB-cqc" firstAttribute="leading" secondItem="et4-mj-8RU" secondAttribute="trailing" constant="31" id="oBa-Gb-Z72"/>
+                            <constraint firstItem="HJb-Ox-Mzj" firstAttribute="top" secondItem="Aad-nB-cqc" secondAttribute="bottom" constant="92" id="riF-fw-o7z"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="first" id="4mB-3Z-v5S"/>
+                    <connections>
+                        <outlet property="myEventsLabel" destination="HJb-Ox-Mzj" id="4rO-4d-Y4h"/>
+                        <outlet property="myEventsTableView" destination="xjH-Qp-SMI" id="lff-d6-hUe"/>
+                        <outlet property="profileName" destination="Aad-nB-cqc" id="FTH-Pv-7pZ"/>
+                        <outlet property="profilePic" destination="et4-mj-8RU" id="cwt-ya-64w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rI5-hI-71b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="780" y="744"/>
+            <point key="canvasLocation" x="780" y="724"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="Yla-yi-29y">

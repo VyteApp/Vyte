@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    @IBOutlet var profilePic: FBProfilePictureView!
+    @IBOutlet var profilePic: UIImageView!
     
     @IBOutlet var profileName: UILabel!
     
@@ -21,13 +21,17 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        if (PFUser.currentUser() != nil){
-            profileName.text = PFUser.currentUser().username
-            profilePic = FBProfilePictureView.init()
-            profilePic.profileID = PFUser.currentUser()["fbId"] as String
-            profilePic.pictureCropping = FBProfilePictureCropping.Square
-        } else {
-            NSLog("Current user is nil but got through log-in???")
+        profileName.text = PFUser.currentUser().username
+        var fbSession = PFFacebookUtils.session()
+        var accessToken = fbSession.accessTokenData.accessToken
+        let url = NSURL(string: "https://graph.facebook.com/me/picture?type=large&return_ssl_resources=1&access_token="+accessToken)
+        let urlRequest = NSURLRequest(URL: url!)
+        
+        NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue.mainQueue()){ (response:NSURLResponse!, data:NSData!, error:NSError!) -> Void in
+            // Display the image
+            let image = UIImage(data: data)
+            self.profilePic.contentMode = UIViewContentMode.ScaleAspectFit
+            self.profilePic.image = image
         }
     }
     

@@ -20,10 +20,10 @@ class SecondViewController: UIViewController {
             } as FBRequestHandler;
         
         if let session = PFFacebookUtils.session() {
+            println("permissions: \(session.permissions)")
             var token = session.accessTokenData.accessToken
-            if session.isOpen && token != nil {
-                FBRequestConnection.startWithGraphPath("/me/profile", completionHandler: completionHandler)
-
+            if session.isOpen {
+                FBRequestConnection.startWithGraphPath("me", completionHandler: completionHandler)
             }
         }
     }

@@ -11,8 +11,8 @@
 		0C1B7C181AD1CF0B00C4B192 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B7C171AD1CF0B00C4B192 /* ProfileViewController.swift */; };
 		0C1B7C1A1AD1D3F700C4B192 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */; };
 		0CC59FA11AC13564001EDE1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA01AC13564001EDE1F /* AppDelegate.swift */; };
-		0CC59FA31AC13564001EDE1F /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA21AC13564001EDE1F /* FirstViewController.swift */; };
-		0CC59FA51AC13564001EDE1F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA41AC13564001EDE1F /* SecondViewController.swift */; };
+		0CC59FA31AC13564001EDE1F /* EventsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA21AC13564001EDE1F /* EventsMapViewController.swift */; };
+		0CC59FA51AC13564001EDE1F /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA41AC13564001EDE1F /* EventListViewController.swift */; };
 		0CC59FA81AC13564001EDE1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC59FA61AC13564001EDE1F /* Main.storyboard */; };
 		0CC59FAA1AC13564001EDE1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CC59FA91AC13564001EDE1F /* Images.xcassets */; };
 		0CC59FAD1AC13564001EDE1F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CC59FAB1AC13564001EDE1F /* LaunchScreen.xib */; };
@@ -39,8 +39,8 @@
 		0CC59F9B1AC13564001EDE1F /* Vyte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vyte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC59F9F1AC13564001EDE1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CC59FA01AC13564001EDE1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0CC59FA21AC13564001EDE1F /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		0CC59FA41AC13564001EDE1F /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		0CC59FA21AC13564001EDE1F /* EventsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsMapViewController.swift; sourceTree = "<group>"; };
+		0CC59FA41AC13564001EDE1F /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
 		0CC59FA71AC13564001EDE1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0CC59FA91AC13564001EDE1F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0CC59FAC1AC13564001EDE1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -101,8 +101,8 @@
 				FF8DF7971AD365D000F07F9D /* Event.swift */,
 				0C1B7C171AD1CF0B00C4B192 /* ProfileViewController.swift */,
 				0CC59FA01AC13564001EDE1F /* AppDelegate.swift */,
-				0CC59FA21AC13564001EDE1F /* FirstViewController.swift */,
-				0CC59FA41AC13564001EDE1F /* SecondViewController.swift */,
+				0CC59FA21AC13564001EDE1F /* EventsMapViewController.swift */,
+				0CC59FA41AC13564001EDE1F /* EventListViewController.swift */,
 				0CC59FA61AC13564001EDE1F /* Main.storyboard */,
 				0CC59FA91AC13564001EDE1F /* Images.xcassets */,
 				0CC59FAB1AC13564001EDE1F /* LaunchScreen.xib */,
@@ -289,12 +289,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CC59FA51AC13564001EDE1F /* SecondViewController.swift in Sources */,
+				0CC59FA51AC13564001EDE1F /* EventListViewController.swift in Sources */,
 				0C1B7C181AD1CF0B00C4B192 /* ProfileViewController.swift in Sources */,
 				0CC59FA11AC13564001EDE1F /* AppDelegate.swift in Sources */,
 				0C1B7C1A1AD1D3F700C4B192 /* LoginViewController.swift in Sources */,
 				FF8DF7981AD365D100F07F9D /* Event.swift in Sources */,
-				0CC59FA31AC13564001EDE1F /* FirstViewController.swift in Sources */,
+				0CC59FA31AC13564001EDE1F /* EventsMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class FirstViewController: UIViewController, MKMapViewDelegate, FBRequestConnectionDelegate {
+class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestConnectionDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -20,7 +20,28 @@ class FirstViewController: UIViewController, MKMapViewDelegate, FBRequestConnect
         mapView.showsPointsOfInterest = true
         mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
         // Do any additional setup after loading the view, typically from a nib.
-        showNearbyEvents()
+        showDemoEvents()
+        //showNearbyEvents()
+    }
+    
+    func showDemoEvents(){
+        var eventPinA = MKPointAnnotation()
+        eventPinA.setCoordinate(CLLocationCoordinate2DMake(42.359184, -71.093544))
+        eventPinA.title = "Demo"
+        eventPinA.subtitle = "4/7/2015 8:00PM"
+        mapView.addAnnotation(eventPinA)
+        
+        var eventPinB = MKPointAnnotation()
+        eventPinB.setCoordinate(CLLocationCoordinate2DMake(42.3561172, -71.09722090))
+        eventPinB.title = "Kappa Sigma Dinner"
+        eventPinB.subtitle = "4/7/2015 7:20PM"
+        mapView.addAnnotation(eventPinB)
+        
+        var eventPinC = MKPointAnnotation()
+        eventPinC.setCoordinate(CLLocationCoordinate2DMake(42.3630706, -71.0862851))
+        eventPinC.title = "Chipotle Burrito-Eating Contest"
+        eventPinC.subtitle = "4/7/2015 7:30PM"
+        mapView.addAnnotation(eventPinC)
     }
 
     //TODO: Have this function called periodically?

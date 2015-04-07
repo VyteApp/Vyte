@@ -10,10 +10,10 @@ import UIKit
 
 class LoginViewController: UIViewController, FBLoginViewDelegate {
     
-    let permissions = ["public_profile", "user_friends", "user_about_me", "user_events"]
+    let permissions = ["public_profile", "user_friends", "user_events"]
     
     @IBOutlet var fbLoginView: FBLoginView!
-
+    
     func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
         self.saveUserNameAndFbId()
         performSegueWithIdentifier("Push", sender: self)

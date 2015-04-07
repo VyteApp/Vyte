@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController{
+class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var profilePic: UIImageView!
+    @IBOutlet var profilePic: FBProfilePictureView!
     
     @IBOutlet var profileName: UILabel!
     
@@ -23,19 +23,19 @@ class ProfileViewController: UIViewController{
         // Do any additional setup after loading the view, typically from a nib.
         if (PFUser.currentUser() != nil){
             profileName.text = PFUser.currentUser().username
-            setProfilePic()
+            profilePic = FBProfilePictureView.init()
+            profilePic.profileID = PFUser.currentUser()["fbId"] as String
+            profilePic.pictureCropping = FBProfilePictureCropping.Square
         } else {
             NSLog("Current user is nil but got through log-in???")
         }
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func setProfilePic() {
-        
-    }
 
 }

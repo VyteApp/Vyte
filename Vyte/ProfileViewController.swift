@@ -18,6 +18,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var myEventsTableView: UITableView!
     
+    
+    
+    @IBAction func createEventButton(sender: UIButton) {
+        performSegueWithIdentifier("createEventSegue", sender: self)
+    }
+    
     let textCellIdentifier = "TextCell"
     
     let demoEvents = ["Demo at 4/7/2015 8:00PM", "Kappa Sigma Dinner at 4/7/2015 7:20PM", "Chipotle Burrito-Eating Contest at 4/7/2015 7:30PM"]

@@ -39,6 +39,7 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
     
     func saveUserNameAndFbId() {
         if (PFUser.currentUser() == nil || !PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)){
+            println("login failed")
             login()
             return
         }
@@ -61,14 +62,12 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
                             PFUser.currentUser()!.username = result.name
                             PFUser.currentUser()!.setValue(result.objectID, forKey: "fbId")
                             PFUser.currentUser()!.save()
-                        } else {
-                            NSLog("User is nil...")
-                        }
+                        }//else {NSLog("User is nil...")}
                     }
                 })
             }
-            else {NSLog("Session is not Open")}
-        } else {NSLog("Session is nil")}
+            // else {NSLog("Session is not Open")}
+        }// else {NSLog("Session is nil")}
     }
     
     func login() {

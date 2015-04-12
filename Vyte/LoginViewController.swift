@@ -26,8 +26,8 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
         event["Name"] = "Rooming Meeting"
         event["Date"] = "12:00pm April 12th, 2015"
         event["Location"] = "407 Memorial Drive Cambridge MA 02139"
-        event.saveInBackgroundWithBlock {(success: Bool, error: NSError!) -> Void in}
-        event.saveEventually {(success: Bool, error: NSError!) -> Void in}
+       // event.saveInBackgroundWithBlock {(success: Bool, error: NSError!) -> Void in}
+       // event.saveEventually {(success: Bool, error: NSError!) -> Void in}
         
         
     }
@@ -38,11 +38,12 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
     }
     
     func saveUserNameAndFbId() {
-        if (PFUser.currentUser() == nil || !PFFacebookUtils.isLinkedWithUser(PFUser.currentUser())){
+        if (PFUser.currentUser() == nil || !PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)){
+            println("login failed")
             login()
             return
         }
-        else if let fbId = PFUser.currentUser()["fbId"] as? String {
+        else if let fbId = PFUser.currentUser()?.objectForKey("fbId") as? String{
             if !fbId.isEmpty {
                 println("User already has FB ID set.")
                 return
@@ -58,33 +59,31 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
                         if (PFUser.currentUser() != nil){
                             //TODO: Save profile pic?
                             NSLog("Username and fbID being set")
-                            PFUser.currentUser().username = result.name
-                            PFUser.currentUser().setValue(result.objectID, forKey: "fbId")
-                            PFUser.currentUser().save()
-                        } else {
-                            NSLog("User is nil...")
-                        }
+                            PFUser.currentUser()!.username = result.name
+                            PFUser.currentUser()!.setValue(result.objectID, forKey: "fbId")
+                            PFUser.currentUser()!.save()
+                        }//else {NSLog("User is nil...")}
                     }
                 })
             }
-            else {NSLog("Session is not Open")}
-        } else {NSLog("Session is nil")}
+            // else {NSLog("Session is not Open")}
+        }// else {NSLog("Session is nil")}
     }
     
     func login() {
-        PFFacebookUtils.logInWithPermissions(self.permissions, {
-            (user: PFUser!, error: NSError!) -> Void in
+        PFFacebookUtils.logInWithPermissions(self.permissions, block: {
+(user: PFUser?, error: NSError?) -> Void in
             if user == nil {
                 NSLog("The user cancelled the Facebook login.")
             } else {
-                if user.isNew {
+                if user!.isNew {
                     NSLog("User signed up and logged in through Facebook: \(user)")
                 } else {
                     NSLog("User logged in through Facebook: \(user)")
                 }
-                if !PFFacebookUtils.isLinkedWithUser(user) {
-                    PFFacebookUtils.linkUser(user, permissions: self.permissions, { // permissions:nil
-                    (succeeded: Bool!, error: NSError!) -> Void in
+                if !PFFacebookUtils.isLinkedWithUser(user!) {
+                    PFFacebookUtils.linkUser(user!, permissions: self.permissions, block: {
+                    (succeeded: Bool, error: NSError?) -> Void in
                     if (succeeded.boolValue) {
                         println("Linked existing user with Facebook.")
                     }
@@ -93,7 +92,7 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
 
             }
             
-        })
+            })
     }
     
     

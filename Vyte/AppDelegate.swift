@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager?.requestWhenInUseAuthorization()
         
         Parse.setApplicationId("MhPPlRF7WKIPFJy0OemYxyjKPul1Zprsya9bDeUu", clientKey:"75LDtIaABm80CkOrg52oygHiWI5G9c0nd5UrtUUo")
-        PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions?, block: nil)
+        PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
         FBProfilePictureView.self
 

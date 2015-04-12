@@ -35,9 +35,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         myEventsTableView.delegate = self
         myEventsTableView.dataSource = self
         
-        profileName.text = PFUser.currentUser().username
+        profileName.text = PFUser.currentUser()!.username
         var fbSession = PFFacebookUtils.session()
-        var accessToken = fbSession.accessTokenData.accessToken
+        var accessToken = fbSession!.accessTokenData.accessToken
         let url = NSURL(string: "https://graph.facebook.com/me/picture?type=large&return_ssl_resources=1&access_token="+accessToken)
         let urlRequest = NSURLRequest(URL: url!)
         
@@ -64,7 +64,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
         let row = indexPath.row
         cell.textLabel?.text = demoEvents[row]

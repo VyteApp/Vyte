@@ -156,11 +156,21 @@
                                     <action selector="datePickerAction:" destination="iTI-9a-aBe" eventType="valueChanged" id="S8F-ft-siD"/>
                                 </connections>
                             </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFj-mZ-a3Y">
+                                <rect key="frame" x="282" y="513" width="37" height="30"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="done:" destination="iTI-9a-aBe" eventType="touchUpInside" id="hEG-rr-S4T"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="Svd-Dq-ubr" id="R0e-Mi-t1l"/>
+                        <outlet property="doneButton" destination="iFj-mZ-a3Y" id="Qdi-SR-zrN"/>
                         <outlet property="locationField" destination="z16-Q0-3TG" id="TrH-za-J4J"/>
                         <outlet property="nameField" destination="ohf-bd-y2C" id="0BL-yR-gYP"/>
                         <outlet property="selectedDate" destination="IIs-Jo-Mtl" id="1jw-Os-mfC"/>

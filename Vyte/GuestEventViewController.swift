@@ -33,6 +33,7 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         attendees.delegate = self
         attendees.dataSource = self
+        //TODO: Get data from previous view controller
         
     }
     

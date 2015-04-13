@@ -42,6 +42,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
         nearbyEventsTableView.delegate = self
         nearbyEventsTableView.dataSource = self
         //getFacebookEvents()
+
     }
 
     override func didReceiveMemoryWarning() {

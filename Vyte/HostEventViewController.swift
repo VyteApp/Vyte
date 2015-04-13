@@ -33,7 +33,8 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         attendees.delegate = self
         attendees.dataSource = self
-        
+        //TODO: Get data from previous view controller
+
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -54,7 +55,6 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
         println(events[indexPath.section][indexPath.row])
     }
     

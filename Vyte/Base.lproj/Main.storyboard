@@ -278,35 +278,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ohf-bd-y2C">
-                                <rect key="frame" x="111" y="16" width="258" height="30"/>
+                                <rect key="frame" x="111" y="133" width="258" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1SS-mm-jr2">
-                                <rect key="frame" x="16" y="20" width="87" height="21"/>
+                                <rect key="frame" x="16" y="137" width="87" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z16-Q0-3TG">
-                                <rect key="frame" x="111" y="58" width="258" height="30"/>
+                                <rect key="frame" x="111" y="175" width="258" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQl-af-MIg">
-                                <rect key="frame" x="16" y="62" width="67" height="21"/>
+                                <rect key="frame" x="16" y="179" width="67" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIs-Jo-Mtl">
-                                <rect key="frame" x="16" y="118" width="568" height="101"/>
+                                <rect key="frame" x="16" y="235" width="568" height="101"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Svd-Dq-ubr">
-                                <rect key="frame" x="0.0" y="219" width="600" height="162"/>
+                                <rect key="frame" x="0.0" y="336" width="600" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="450561802.08244801">
                                     <!--2015-04-12 20:03:22 +0000-->
                                 </date>
@@ -314,23 +314,31 @@
                                     <action selector="datePickerAction:" destination="iTI-9a-aBe" eventType="valueChanged" id="S8F-ft-siD"/>
                                 </connections>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFj-mZ-a3Y">
-                                <rect key="frame" x="282" y="513" width="37" height="30"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="done:" destination="iTI-9a-aBe" eventType="touchUpInside" id="hEG-rr-S4T"/>
-                                </connections>
-                            </button>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rks-Wd-crq">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Create Event" id="wFe-t4-7T0">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="20l-0P-kaC">
+                                            <connections>
+                                                <action selector="cancel:" destination="iTI-9a-aBe" id="aQs-Yt-WPF"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="e4I-Xu-Nef">
+                                            <connections>
+                                                <action selector="done:" destination="iTI-9a-aBe" id="cKQ-r1-Scn"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="Svd-Dq-ubr" id="R0e-Mi-t1l"/>
-                        <outlet property="doneButton" destination="iFj-mZ-a3Y" id="Qdi-SR-zrN"/>
                         <outlet property="locationField" destination="z16-Q0-3TG" id="TrH-za-J4J"/>
                         <outlet property="nameField" destination="ohf-bd-y2C" id="0BL-yR-gYP"/>
+                        <outlet property="navigationBar" destination="rks-Wd-crq" id="XdJ-2g-aoN"/>
                         <outlet property="selectedDate" destination="IIs-Jo-Mtl" id="1jw-Os-mfC"/>
                     </connections>
                 </viewController>
@@ -407,7 +415,7 @@
                         <outlet property="myEventsTableView" destination="xjH-Qp-SMI" id="lff-d6-hUe"/>
                         <outlet property="profileName" destination="Aad-nB-cqc" id="FTH-Pv-7pZ"/>
                         <outlet property="profilePic" destination="KfH-8J-BoJ" id="N6E-bX-t1D"/>
-                        <segue destination="iTI-9a-aBe" kind="show" identifier="createEventSegue" id="fDW-Rb-erU"/>
+                        <segue destination="iTI-9a-aBe" kind="modal" identifier="createEventSegue" id="fDW-Rb-erU"/>
                         <segue destination="p4g-7B-w67" kind="show" identifier="Attending" id="kHa-mk-ag3"/>
                         <segue destination="OfA-7G-UXv" kind="show" identifier="Hosting" id="2ND-FR-wEQ"/>
                     </connections>

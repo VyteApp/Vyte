@@ -11,11 +11,11 @@ import MapKit
 
 class EventCreatorViewController: UIViewController {
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var selectedDate: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var doneButton: UIButton!
     
     @IBAction func datePickerAction(sender: AnyObject) {
         var dateFormatter = NSDateFormatter()
@@ -24,7 +24,11 @@ class EventCreatorViewController: UIViewController {
         self.selectedDate.text = date
     }
     
-    @IBAction func done(sender: UIButton) {
+    @IBAction func cancel(sender: AnyObject) {
+        self.dismissViewControllerAnimated(false, completion: nil)
+        println("cancel")
+    }
+    @IBAction func done(sender: AnyObject) {
         println("name: \(nameField.text)")
         println("location: \(locationField.text)")
         println("date: \(selectedDate.text)")
@@ -39,6 +43,8 @@ class EventCreatorViewController: UIViewController {
                 var geopoint = PFGeoPoint(latitude: coordinates.latitude, longitude: coordinates.longitude)
             }
         })
+        self.dismissViewControllerAnimated(false, completion: nil)
+        println("done")
         
     }
     

@@ -14,6 +14,7 @@ class EventCreatorViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var locationField: UITextField!
+    @IBOutlet weak var descriptionField: UITextView!
     @IBOutlet weak var selectedDate: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     
@@ -28,9 +29,11 @@ class EventCreatorViewController: UIViewController {
         self.dismissViewControllerAnimated(false, completion: nil)
         println("cancel")
     }
+    
     @IBAction func done(sender: AnyObject) {
         println("name: \(nameField.text)")
         println("location: \(locationField.text)")
+        println("description: \(descriptionField.text)")
         println("date: \(selectedDate.text)")
         
         CLGeocoder().geocodeAddressString(locationField.text, completionHandler: {(placemarks,error) -> Void in
@@ -48,9 +51,7 @@ class EventCreatorViewController: UIViewController {
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         nameField.resignFirstResponder()
@@ -62,6 +63,10 @@ class EventCreatorViewController: UIViewController {
         nameField.resignFirstResponder()
         locationField.resignFirstResponder()
         self.view.endEditing(true)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
 }

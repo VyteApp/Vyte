@@ -23,6 +23,8 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet var attendees: UITableView!
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    
     let sections = ["Attending", "Not Attending", "Invited"]
     
     var events : [[String]] = [["Alex", "Bob"],["Carol"], ["Denise"]]
@@ -35,6 +37,11 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
         attendees.dataSource = self
         //TODO: Get data from previous view controller
         
+    }
+    
+    @IBAction func back(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(false, completion: nil)
+        println("back")
     }
     
     override func didReceiveMemoryWarning() {

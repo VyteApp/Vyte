@@ -37,6 +37,10 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
 
     }
     
+    @IBAction func Back(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(false, completion: nil)
+        println("back")
+    }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
     }

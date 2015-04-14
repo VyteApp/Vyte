@@ -17,12 +17,30 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     
     let sections = ["Within 1 mile", "Within 5 miles", "Within 10 miles"]
     
-    var events: [[String]] = []
-    
-    let user = PFUser.currentUser()
-    
+    var events : [[Event]] = [[],[],[]]
+
     let textCellIdentifier = "TextCell"
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        nearbyEventsTableView.delegate = self
+        nearbyEventsTableView.dataSource = self
+    }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "viewEventFromList" {
+            let event = sender as! Event
+            let vc = segue.destinationViewController as! GuestEventViewController
+            vc.eventName.text = event.name
+            vc.eventTime.text = event.start_time.description
+            //TODO: convert location coordinates to address
+            //vc.eventLocation.text = event!.location to address
+            vc.eventDescription.text == ""
+            vc.invitees = []
+        }
+    }
+    
+    /*
     func getFacebookEvents() {
         var completionHandler = {
             connection, result, error in
@@ -37,15 +55,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
                 FBRequestConnection.startWithGraphPath("me/events", completionHandler: completionHandler)
             }
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        nearbyEventsTableView.delegate = self
-        nearbyEventsTableView.dataSource = self
-        //getFacebookEvents()
-
-    }
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,7 +73,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = events[indexPath.section][indexPath.row]
+        cell.textLabel?.text = events[indexPath.section][indexPath.row].name
 
         return cell
     }
@@ -71,7 +81,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         println(events[indexPath.section][indexPath.row])
-        //performSegueWithIdentifier(enter identifier, sender: self)
+        performSegueWithIdentifier("viewEventFromList", sender: events[indexPath.section][indexPath.row])
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

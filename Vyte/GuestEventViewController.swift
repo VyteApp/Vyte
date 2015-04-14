@@ -18,16 +18,14 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var eventLocation: UILabel!
 
     @IBOutlet var eventDescription: UILabel!
-    
-    @IBOutlet var mapView: MKMapView!
-    
+        
     @IBOutlet var attendees: UITableView!
     
     @IBOutlet weak var navigationBar: UINavigationBar!
     
     let sections = ["Attending", "Not Attending", "Invited"]
     
-    var events : [[String]] = [["Alex", "Bob"],["Carol"], ["Denise"]]
+    var invitees : [[String]] = [["Alex", "Bob"],["Carol"], ["Denise"]]
     
     let textCellIdentifier = "TextCell"
     
@@ -54,13 +52,13 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events[section].count
+        return invitees[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = events[indexPath.section][indexPath.row]
+        cell.textLabel?.text = invitees[indexPath.section][indexPath.row]
         
         return cell
     }
@@ -68,7 +66,7 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        println(events[indexPath.section][indexPath.row])
+        println(invitees[indexPath.section][indexPath.row])
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

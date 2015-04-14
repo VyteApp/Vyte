@@ -13,6 +13,8 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
 
     @IBOutlet weak var mapView: MKMapView!
     
+    var events : [Event] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -20,11 +22,47 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
         mapView.showsPointsOfInterest = true
         mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
         // Do any additional setup after loading the view, typically from a nib.
-        showDemoEvents()
-        //showNearbyEvents()
+        showEventsAsPins()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "viewEventFromMap" {
+            let pin = sender as! MKAnnotation
+            let event = events.filter({(e: Event) in e.name == pin.title}).first
+            let vc = segue.destinationViewController as! GuestEventViewController
+            vc.eventName.text = event!.name
+            vc.eventTime.text = event!.start_time.description
+            //TODO: convert location coordinates to address
+            //vc.eventLocation.text = event!.location to address
+            vc.eventDescription.text == ""
+            vc.invitees = []
+        }
+    }
+    
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        let pin = view.annotation
+        performSegueWithIdentifier("viewEventFromMap", sender: pin)
+    }
+    
+    func showEventsAsPins(){
+        for event in events {
+            let pin = MKPointAnnotation()
+            pin.coordinate = event.location
+            pin.title = event.name
+            pin.subtitle = event.start_time.description
+            mapView.addAnnotation(pin)
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    
+    /*
     func showDemoEvents(){
+        
         var eventPinA = MKPointAnnotation()
         eventPinA.coordinate = CLLocationCoordinate2DMake(42.359184, -71.093544)
         eventPinA.title = "Demo"
@@ -44,7 +82,6 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
         mapView.addAnnotation(eventPinC)
     }
 
-    //TODO: Have this function called periodically?
     func showNearbyEvents() {
         let currentLocation = mapView.userLocation.coordinate
         //radius = 50 m
@@ -61,12 +98,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
             //mapView.addAnnotation(event)
             NSLog("\(result)")
         })
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    }*/
 
 }
 

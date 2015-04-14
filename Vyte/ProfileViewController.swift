@@ -20,7 +20,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     let sections = ["Hosting","Attending"]
     
-    var events : [[String]] = [["Hosting1","Hosting2"],["Att1", "Att2", "Att3", "Att4"]]
+    var events : [[Event]] = [[],[],[]]
+    
+    //var events : [[String]] = [["Hosting1","Hosting2"],["Att1", "Att2", "Att3", "Att4"]]
     
     @IBAction func createEventButton(sender: UIButton) {
         performSegueWithIdentifier("createEventSegue", sender: self)
@@ -48,6 +50,29 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "Hosting" {
+            let event = sender as! Event
+            let vc = segue.destinationViewController as! HostEventViewController
+            vc.eventName.text = event.name
+            vc.eventTime.text = event.start_time.description
+            //TODO: convert location coordinates to address
+            //vc.eventLocation.text = event!.location to address
+            vc.eventDescription.text == ""
+            vc.invitees = []
+
+        } else if segue.identifier == "Attending" {
+            let event = sender as! Event
+            let vc = segue.destinationViewController as! GuestEventViewController
+            vc.eventName.text = event.name
+            vc.eventTime.text = event.start_time.description
+            //TODO: convert location coordinates to address
+            //vc.eventLocation.text = event!.location to address
+            vc.eventDescription.text == ""
+            vc.invitees = []
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -64,7 +89,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = events[indexPath.section][indexPath.row]
+        cell.textLabel?.text = events[indexPath.section][indexPath.row].name
         
         return cell
     }
@@ -72,7 +97,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         println(events[indexPath.section][indexPath.row])
-        performSegueWithIdentifier(sections[indexPath.section], sender: self)
+        performSegueWithIdentifier(sections[indexPath.section], sender: events[indexPath.section][indexPath.row])
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

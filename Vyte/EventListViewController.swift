@@ -15,11 +15,13 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet var nearbyEventsTableView : UITableView!
     
+    let sections = ["Within 1 mile", "Within 5 miles", "Within 10 miles"]
+    
+    var events: [[String]] = []
+    
     let user = PFUser.currentUser()
     
     let textCellIdentifier = "TextCell"
-    
-    let demoEvents = ["Demo at 4/7/2015 8:00PM", "Kappa Sigma Dinner at 4/7/2015 7:20PM", "Chipotle Burrito-Eating Contest at 4/7/2015 7:30PM"]
     
     func getFacebookEvents() {
         var completionHandler = {
@@ -51,27 +53,29 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return sections.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return demoEvents.count
+        return events[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        let row = indexPath.row
-        cell.textLabel?.text = demoEvents[row]
-        
+        cell.textLabel?.text = events[indexPath.section][indexPath.row]
+
         return cell
     }
-
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        let row = indexPath.row
-        println(demoEvents[row])
+        println(events[indexPath.section][indexPath.row])
+        //performSegueWithIdentifier(enter identifier, sender: self)
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section]
     }
 
 }

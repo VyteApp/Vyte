@@ -48,7 +48,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -72,14 +71,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
         println(events[indexPath.section][indexPath.row])
+        performSegueWithIdentifier(sections[indexPath.section], sender: self)
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section]
     }
-
-    
 
 }

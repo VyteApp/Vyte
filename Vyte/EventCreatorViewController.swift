@@ -29,10 +29,10 @@ class EventCreatorViewController: UIViewController {
         println("location: \(locationField.text)")
         println("date: \(selectedDate.text)")
         
-        CLGeocoder().geocodeAddressString(locationField.text, {(placemarks,error) -> Void in
+        CLGeocoder().geocodeAddressString(locationField.text, completionHandler: {(placemarks,error) -> Void in
             if (error != nil) {println("error: \(error)")}
             else if let placemark = placemarks?[0] as? CLPlacemark {
-                var placemark:CLPlacemark = placemarks[0] as CLPlacemark
+                var placemark:CLPlacemark = placemarks[0] as! CLPlacemark
                 var coordinates:CLLocationCoordinate2D = placemark.location.coordinate
                 println("latitude: \(coordinates.latitude)")
                 println("longitude: \(coordinates.longitude)")
@@ -52,7 +52,7 @@ class EventCreatorViewController: UIViewController {
         return true;
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         nameField.resignFirstResponder()
         locationField.resignFirstResponder()
         self.view.endEditing(true)

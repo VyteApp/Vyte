@@ -468,33 +468,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2BC-ng-6oX" customClass="FBLoginView">
-                                <rect key="frame" x="56" y="195" width="489" height="359"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh1-pj-W2d">
+                                <rect key="frame" x="226" y="285" width="148" height="30"/>
+                                <state key="normal" title="Log in with Facebook">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonTapped:" destination="xFW-R5-XxE" eventType="touchUpInside" id="5bJ-7z-iuC"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vyte" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pc8-0n-lck">
-                                <rect key="frame" x="264" y="81" width="73" height="38"/>
+                                <rect key="frame" x="219" y="95" width="162" height="89"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="73" id="S0p-eS-rO4"/>
-                                    <constraint firstAttribute="height" constant="38" id="juY-yk-LdT"/>
+                                    <constraint firstAttribute="height" constant="89" id="aSL-Zj-smJ"/>
+                                    <constraint firstAttribute="width" constant="162" id="fm7-M1-YSj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Pc8-0n-lck" firstAttribute="top" secondItem="ai1-o8-4hr" secondAttribute="bottom" constant="61" id="MF8-oz-rq2"/>
-                            <constraint firstItem="2BC-ng-6oX" firstAttribute="leading" secondItem="5n8-uh-2M0" secondAttribute="leadingMargin" constant="40" id="QH5-gl-I5P"/>
-                            <constraint firstItem="j3A-6p-TAZ" firstAttribute="top" secondItem="2BC-ng-6oX" secondAttribute="bottom" constant="46" id="iuC-FL-uDr"/>
-                            <constraint firstItem="2BC-ng-6oX" firstAttribute="centerX" secondItem="5n8-uh-2M0" secondAttribute="centerX" id="kvC-oJ-hRy"/>
-                            <constraint firstItem="2BC-ng-6oX" firstAttribute="top" secondItem="Pc8-0n-lck" secondAttribute="bottom" constant="76" id="uLE-fZ-Kgd"/>
-                            <constraint firstItem="2BC-ng-6oX" firstAttribute="centerX" secondItem="Pc8-0n-lck" secondAttribute="centerX" id="w5o-1r-jqn"/>
+                            <constraint firstItem="Pc8-0n-lck" firstAttribute="top" secondItem="ai1-o8-4hr" secondAttribute="bottom" constant="75" id="33E-lL-aLe"/>
+                            <constraint firstItem="zh1-pj-W2d" firstAttribute="centerX" secondItem="5n8-uh-2M0" secondAttribute="centerX" id="75L-2s-i09"/>
+                            <constraint firstItem="zh1-pj-W2d" firstAttribute="centerX" secondItem="Pc8-0n-lck" secondAttribute="centerX" id="Yyi-s2-EC5"/>
+                            <constraint firstItem="zh1-pj-W2d" firstAttribute="centerY" secondItem="5n8-uh-2M0" secondAttribute="centerY" id="nXL-dr-qYG"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="fbLoginView" destination="2BC-ng-6oX" id="qh4-aV-n6H"/>
                         <segue destination="49e-Tb-3d3" kind="show" identifier="Push" id="kOC-nt-9uz"/>
                     </connections>
                 </viewController>

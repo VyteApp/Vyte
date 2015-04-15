@@ -10,33 +10,58 @@ import UIKit
 
 class LoginViewController: UIViewController, FBLoginViewDelegate {
     
-    let permissions = ["public_profile", "user_friends", "user_events"]
+    let permissions = ["public_profile", "user_friends"] //, "user_events"]
     
-    @IBOutlet var fbLoginView: FBLoginView!
+    let fbLoginView = FBLoginView()
+    
+    @IBOutlet var loginButton : UIButton!
+    
+    @IBAction func loginButtonTapped(sender: UIButton){
+        PFFacebookUtils.logInWithPermissions(self.permissions, block: {
+            (user: PFUser?, error: NSError?) -> Void in
+            if user == nil {
+                NSLog("The user cancelled the Facebook login.")
+            } else {
+                if user!.isNew {
+                    NSLog("User signed up and logged in through Facebook: \(user)")
+                } else {
+                    NSLog("User logged in through Facebook: \(user)")
+                }
+                if !PFFacebookUtils.isLinkedWithUser(user!) {
+                    PFFacebookUtils.linkUser(user!, permissions: self.permissions, block: {
+                        (succeeded: Bool, error: NSError?) -> Void in
+                        if (succeeded.boolValue) {
+                            println("Linked existing user with Facebook.")
+                        }
+                    })
+                }
+                self.performSegueWithIdentifier("Push", sender: self)
+            }
+            
+        })
+    }
     
     func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
-        self.saveUserNameAndFbId()
+        //self.saveUserNameAndFbId()
         performSegueWithIdentifier("Push", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fbLoginView.delegate = self
-        var event = PFObject(className:"TestEvent")
-        event["Name"] = "Rooming Meeting"
-        event["Date"] = "12:00pm April 12th, 2015"
-        event["Location"] = "407 Memorial Drive Cambridge MA 02139"
+        //var event = PFObject(className:"TestEvent")
+        //event["Name"] = "Rooming Meeting"
+        //event["Date"] = "12:00pm April 12th, 2015"
+        //event["Location"] = "407 Memorial Drive Cambridge MA 02139"
        // event.saveInBackgroundWithBlock {(success: Bool, error: NSError!) -> Void in}
        // event.saveEventually {(success: Bool, error: NSError!) -> Void in}
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    /*
     func saveUserNameAndFbId() {
         if (PFUser.currentUser() == nil || !PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!)){
             println("login failed")
@@ -93,7 +118,7 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
             }
             
             })
-    }
+    }*/
     
     
     

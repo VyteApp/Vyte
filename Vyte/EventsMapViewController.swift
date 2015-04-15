@@ -47,7 +47,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
     func showEventsAsPins(){
         for event in events {
             let pin = MKPointAnnotation()
-            pin.coordinate = event.location
+            pin.coordinate = CLLocationCoordinate2D(latitude: event.location.latitude, longitude: event.location.longitude)
             pin.title = event.name
             pin.subtitle = event.start_time.description
             mapView.addAnnotation(pin)

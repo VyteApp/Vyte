@@ -55,6 +55,7 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
         //event["Location"] = "407 Memorial Drive Cambridge MA 02139"
        // event.saveInBackgroundWithBlock {(success: Bool, error: NSError!) -> Void in}
        // event.saveEventually {(success: Bool, error: NSError!) -> Void in}
+
     }
     
     override func didReceiveMemoryWarning() {

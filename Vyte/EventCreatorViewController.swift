@@ -31,24 +31,48 @@ class EventCreatorViewController: UIViewController {
     }
     
     @IBAction func done(sender: AnyObject) {
-        println("name: \(nameField.text)")
-        println("location: \(locationField.text)")
-        println("description: \(descriptionField.text)")
-        println("date: \(selectedDate.text)")
+        var name = nameField.text
+        var description = descriptionField.text
+        var address = locationField.text
+        var location = getCoordinates(address)
+        var date = datePicker.date
+        var host = PFUser.currentUser()!
+        println("host: \(host)")
+        println("username: \(host.username)")
+        println("name: \(name)")
+        println("location: \(location)")
+        println("description: \(description)")
+        println("date: \(date)")
         
-        CLGeocoder().geocodeAddressString(locationField.text, completionHandler: {(placemarks,error) -> Void in
+        var event = Event(host: host, name: name, description: description, address: address, location: location, start_time: date)
+        
+        self.dismissViewControllerAnimated(false, completion: nil)
+        println("done")
+        
+    }
+    
+    func dateFromString(date: String!) -> NSDate {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyy HH:mm"
+        println(date)
+        println(dateFormatter.dateFromString(date))
+        return dateFormatter.dateFromString(date)!
+    }
+    
+    func getCoordinates(address: String!) -> PFGeoPoint {
+        var geopoint: PFGeoPoint = PFGeoPoint()
+        CLGeocoder().geocodeAddressString(address, completionHandler: {(placemarks,error) -> Void in
             if (error != nil) {println("error: \(error)")}
             else if let placemark = placemarks?[0] as? CLPlacemark {
                 var placemark:CLPlacemark = placemarks[0] as! CLPlacemark
                 var coordinates:CLLocationCoordinate2D = placemark.location.coordinate
                 println("latitude: \(coordinates.latitude)")
                 println("longitude: \(coordinates.longitude)")
-                var geopoint = PFGeoPoint(latitude: coordinates.latitude, longitude: coordinates.longitude)
+                return geopoint = PFGeoPoint(latitude: coordinates.latitude, longitude: coordinates.longitude)
             }
         })
-        self.dismissViewControllerAnimated(false, completion: nil)
-        println("done")
-        
+        return geopoint
+
     }
     
     

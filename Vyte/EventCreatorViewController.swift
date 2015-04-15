@@ -46,6 +46,9 @@ class EventCreatorViewController: UIViewController {
         
         var event = Event(host: host, name: name, description: description, address: address, location: location, start_time: date)
         
+        event.recordInfo()
+        let vc = self.presentingViewController as! ProfileViewController
+        vc.events[0].append(event)
         self.dismissViewControllerAnimated(false, completion: nil)
         println("done")
         

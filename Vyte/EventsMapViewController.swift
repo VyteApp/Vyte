@@ -28,14 +28,14 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "viewEventFromMap" {
             let pin = sender as! MKAnnotation
-            let event = events.filter({(e: Event) in e.name == pin.title}).first
+            let event = events.filter({(e: Event) in e.name == pin.title}).first!
             let vc = segue.destinationViewController as! GuestEventViewController
-            vc.eventName.text = event!.name
-            vc.eventTime.text = event!.start_time.description
-            //TODO: convert location coordinates to address
-            //vc.eventLocation.text = event!.location to address
-            vc.eventDescription.text == ""
-            vc.invitees = []
+            vc.eName = event.name
+            vc.eTime = event.start_time.description
+            vc.eLocation = event.location.description
+            vc.eDescription = event.description
+            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+
         }
     }
     
@@ -45,12 +45,15 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
     }
     
     func showEventsAsPins(){
-        for event in events {
+        let location : PFGeoPoint = PFGeoPoint(location: mapView.userLocation.location)
+        let results = (PFQuery(className: "Event").whereKey("Location", geopoint: location, maxDistance: 10.0).findObjects())!
+        for obj in results {
             let pin = MKPointAnnotation()
             pin.coordinate = CLLocationCoordinate2D(latitude: event.location.latitude, longitude: event.location.longitude)
-            pin.title = event.name
-            pin.subtitle = event.start_time.description
+            pin.title = obj["Name"]
+            pin.subtitle = obj["StartTime"].description
             mapView.addAnnotation(pin)
+            events.append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
         }
     }
     

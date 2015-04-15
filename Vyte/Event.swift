@@ -16,6 +16,7 @@ enum RSVP_STATUS: String {
 }
 
 class Event {
+    var host: PFUser!
     var name: String!
     var description: String!
     var address: String!
@@ -24,16 +25,17 @@ class Event {
     var end_time: NSDate!
     var timezone: Int!
     var rsvp_status: String!
+    var objectId : AnyObject
     
-    var host: PFUser!
-    
-    init(name: String!, address: String!, location: PFGeoPoint!, start_time: NSDate!, end_time: NSDate!, timezone: Int!, rsvp_status: String!) {
+    init(host: PFUser!, name: String!, address: String!, location: PFGeoPoint!, start_time: NSDate!, end_time: NSDate!, timezone: Int!, rsvp_status: String!) {
+        self.host = host
         self.name = name
         self.location = location
         self.start_time = start_time
         self.end_time = end_time
         self.timezone = timezone
         self.rsvp_status = rsvp_status
+        self.objectId = 0
     }
     
     init(host: PFUser!, name: String!, description: String!, address: String!, location: PFGeoPoint!, start_time: NSDate!) {
@@ -43,8 +45,16 @@ class Event {
         self.address = address
         self.location = location
         self.start_time = start_time
-        
-        self.recordInfo()
+        self.objectId = 0
+    }
+    
+    init(name: String!, description: String!, address: String!, location: PFGeoPoint!, start_time: NSDate!) {
+        self.name = name
+        self.description = description
+        self.address = address
+        self.location = location
+        self.start_time = start_time
+        self.objectId = 0
     }
     
     func recordInfo() {
@@ -56,15 +66,15 @@ class Event {
         event["Location"] = self.location
         event["StartTime"] = self.start_time
         event.saveInBackgroundWithBlock(nil)
-        event.saveEventually(nil)
+        self.objectId = event.objectId!
+        //event.saveEventually(nil)
+    }
+    
+    func getAttendingUsers() -> [PFUser] {
+        let q = PFQuery(className: "User").whereKey("AttendingEvents", containsAllObjectsInArray: [self.objectId])
+        return q.findObjects() as! [PFUser]
+
     }
     
 }
-/*
-let formatter = NSDateFormatter()
-formatter.dateStyle = NSDateFormatterStyle.ShortStyle
-formatter.timeStyle = NSDateFormatterStyle.ShortStyle
 
-let dateA = formatter.dateFromString("4/7/2015 7:00 PM")
-let locationA = CLLocationCoordinate2D(42.359184, -71.093544)
-let eventA = Event("eventA",locationA,dateA)*/

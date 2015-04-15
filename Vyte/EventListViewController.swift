@@ -23,6 +23,21 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let mapView = MKMapView()
+        PFGeoPoint
+        let location : PFGeoPoint = PFGeoPoint(location: mapView.userLocation.location)
+        let within1mile = (PFQuery(className: "Event").whereKey(key: "Location", geopoint: location, maxDistance: 1.0).findObjects())!
+        for obj in within1mile {
+            events[0].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
+        }
+        let within5miles = (PFQuery(className: "Event").whereKey(key: "Location", geopoint: location, maxDistance: 5.0).findObjects())!
+        for obj in within5miles {
+            events[1].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
+        }
+        let within10miles = (PFQuery(className: "Event").whereKey(key: "Location", geopoint: location, maxDistance: 10.0).findObjects())!
+        for obj in within10miles {
+            events[2].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
+        }
         nearbyEventsTableView.delegate = self
         nearbyEventsTableView.dataSource = self
     }
@@ -31,12 +46,11 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
         if segue.identifier == "viewEventFromList" {
             let event = sender as! Event
             let vc = segue.destinationViewController as! GuestEventViewController
-            vc.eventName.text = event.name
-            vc.eventTime.text = event.start_time.description
-            //TODO: convert location coordinates to address
-            //vc.eventLocation.text = event!.location to address
-            vc.eventDescription.text == ""
-            vc.invitees = []
+            vc.eName = event.name
+            vc.eTime = event.start_time.description
+            vc.eLocation = event.location.description
+            vc.eDescription = event.description
+            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
         }
     }
     
@@ -80,7 +94,6 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        println(events[indexPath.section][indexPath.row])
         performSegueWithIdentifier("viewEventFromList", sender: events[indexPath.section][indexPath.row])
     }
     

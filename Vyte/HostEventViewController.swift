@@ -11,15 +11,20 @@ import MapKit
 
 class HostEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    @IBOutlet weak var eventName: UILabel!
+    @IBOutlet var eventName: UILabel! = UILabel()
     
-    @IBOutlet weak var eventTime: UILabel!
+    @IBOutlet var eventTime: UILabel! = UILabel()
     
-    @IBOutlet weak var eventLocation: UILabel!
+    @IBOutlet var eventLocation: UILabel! = UILabel()
     
-    @IBOutlet weak var eventDescription: UILabel!
+    @IBOutlet var eventDescription: UILabel! = UILabel()
         
-    @IBOutlet weak var attendees: UITableView!
+    @IBOutlet var attendees: UITableView!
+    
+    var eName : String!
+    var eTime : String!
+    var eLocation : String!
+    var eDescription : String!
     
     let sections = ["Attending", "Not Attending", "Invited"]
     
@@ -31,8 +36,10 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         attendees.delegate = self
         attendees.dataSource = self
-        //TODO: Get data from previous view controller
-
+        eventName.text = eName
+        eventTime.text = eTime
+        eventLocation.text = eLocation
+        eventDescription.text = eDescription
     }
     
     @IBAction func Back(sender: UIBarButtonItem) {

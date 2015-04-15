@@ -35,6 +35,24 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
                         }
                     })
                 }
+                if let session = PFFacebookUtils.session() {
+                    if session.isOpen {
+                        NSLog("Session is Open")
+                        FBRequestConnection.startForMeWithCompletionHandler({ (connection: FBRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
+                            if error != nil {
+                                NSLog(error.description)
+                            } else {
+                                if (PFUser.currentUser() != nil){
+                                    //TODO: Save profile pic?
+                                    NSLog("Username and fbID being set")
+                                    PFUser.currentUser()!.username = result.name
+                                    PFUser.currentUser()!.setValue(result.objectID, forKey: "fbId")
+                                    PFUser.currentUser()!.save()
+                                }
+                            }
+                        })
+                    }
+                }
                 self.performSegueWithIdentifier("Push", sender: self)
             }
             
@@ -49,13 +67,6 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         fbLoginView.delegate = self
-        //var event = PFObject(className:"TestEvent")
-        //event["Name"] = "Rooming Meeting"
-        //event["Date"] = "12:00pm April 12th, 2015"
-        //event["Location"] = "407 Memorial Drive Cambridge MA 02139"
-       // event.saveInBackgroundWithBlock {(success: Bool, error: NSError!) -> Void in}
-       // event.saveEventually {(success: Bool, error: NSError!) -> Void in}
-
     }
     
     override func didReceiveMemoryWarning() {

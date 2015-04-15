@@ -16,13 +16,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet var myEventsLabel: UILabel!
     
-    @IBOutlet weak var myEventsTableView: UITableView!
+    @IBOutlet var myEventsTableView: UITableView!
     
     let sections = ["Hosting","Attending"]
     
-    var events : [[Event]] = [[],[],[]]
-    
-    //var events : [[String]] = [["Hosting1","Hosting2"],["Att1", "Att2", "Att3", "Att4"]]
+    var events : [[Event]] = [[],[]]
     
     @IBAction func createEventButton(sender: UIButton) {
         performSegueWithIdentifier("createEventSegue", sender: self)
@@ -33,9 +31,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        myEventsTableView.delegate = self
-        myEventsTableView.dataSource = self
-        
         profileName.text = PFUser.currentUser()!.username
         var fbSession = PFFacebookUtils.session()
         var accessToken = fbSession!.accessTokenData.accessToken
@@ -48,29 +43,47 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             self.profilePic.contentMode = UIViewContentMode.ScaleAspectFit
             self.profilePic.image = image
         }
+        let host: String = profileName.text!
+        let hostingEvents = (PFQuery(className: "Event").whereKey("Host", equalTo: host).findObjects())!
+        var hostingEvent : Event
+        for obj in hostingEvents{
+            hostingEvent = Event(host: PFUser.currentUser()!, name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate)
+            events[0].append(hostingEvent)
+        }
+        let attendingEventIDs = PFUser.currentUser()?.objectForKey("AttendingEvents") as! [String]
+        let attendingEvents = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())!
+        var attendingEvent : Event
+        for obj in attendingEvents{
+            attendingEvent = Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate)
+            events[1].append(attendingEvent)
+        }
+        myEventsTableView.delegate = self
+        myEventsTableView.dataSource = self
+    
     }
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Hosting" {
             let event = sender as! Event
             let vc = segue.destinationViewController as! HostEventViewController
-            vc.eventName.text = event.name
-            vc.eventTime.text = event.start_time.description
-            //TODO: convert location coordinates to address
-            //vc.eventLocation.text = event!.location to address
-            vc.eventDescription.text == ""
-            vc.invitees = []
+            vc.eName = event.name
+            vc.eTime = event.start_time.description
+            vc.eLocation = event.location.description
+            vc.eDescription = event.description
+            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
 
         } else if segue.identifier == "Attending" {
             let event = sender as! Event
             let vc = segue.destinationViewController as! GuestEventViewController
-            vc.eventName.text = event.name
-            vc.eventTime.text = event.start_time.description
-            //TODO: convert location coordinates to address
-            //vc.eventLocation.text = event!.location to address
-            vc.eventDescription.text == ""
-            vc.invitees = []
+            vc.eName = event.name
+            vc.eTime = event.start_time.description
+            vc.eLocation = event.location.description
+            vc.eDescription = event.description
+            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+            println(vc.invitees)
         }
+        
     }
     
     override func didReceiveMemoryWarning() {

@@ -30,10 +30,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
             let pin = sender as! MKAnnotation
             let event = events.filter({(e: Event) in e.name == pin.title}).first!
             let vc = segue.destinationViewController as! GuestEventViewController
-            vc.eName = event.name
-            vc.eTime = event.start_time.description
-            vc.eLocation = event.location.description
-            vc.eDescription = event.description
+            vc.event = event
             vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
 
         }
@@ -46,14 +43,17 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
     
     func showEventsAsPins(){
         let location : PFGeoPoint = PFGeoPoint(location: mapView.userLocation.location)
-        let results = (PFQuery(className: "Event").whereKey("Location", geopoint: location, maxDistance: 10.0).findObjects())!
+        let query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location)
+        let results = query.findObjects()!
         for obj in results {
             let pin = MKPointAnnotation()
-            pin.coordinate = CLLocationCoordinate2D(latitude: event.location.latitude, longitude: event.location.longitude)
-            pin.title = obj["Name"]
-            pin.subtitle = obj["StartTime"].description
+            let location = obj.objectForKey("Location") as! PFGeoPoint
+            pin.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            pin.title = obj.objectForKey("Name") as! String
+            pin.subtitle = obj.objectForKey("StartTime")!.description
             mapView.addAnnotation(pin)
             events.append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
+            println(pin.description)
         }
     }
     

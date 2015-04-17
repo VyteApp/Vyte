@@ -21,10 +21,7 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         
     @IBOutlet var attendees: UITableView!
     
-    var eName : String!
-    var eTime : String!
-    var eLocation : String!
-    var eDescription : String!
+    var event : Event!
     
     let sections = ["Attending", "Not Attending", "Invited"]
     
@@ -36,10 +33,10 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         attendees.delegate = self
         attendees.dataSource = self
-        eventName.text = eName
-        eventTime.text = eTime
-        eventLocation.text = eLocation
-        eventDescription.text = eDescription
+        eventName.text = event.name
+        eventTime.text = event.start_time.description
+        eventLocation.text = event.location.description
+        eventDescription.text = event.description
     }
     
     @IBAction func Back(sender: UIBarButtonItem) {

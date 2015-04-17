@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MapKit
+import CoreLocation
 
 class EventListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -23,19 +23,21 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let mapView = MKMapView()
-        PFGeoPoint
-        let location : PFGeoPoint = PFGeoPoint(location: mapView.userLocation.location)
-        let within1mile = (PFQuery(className: "Event").whereKey(key: "Location", geopoint: location, maxDistance: 1.0).findObjects())!
-        for obj in within1mile {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let location : PFGeoPoint = PFGeoPoint(location: appDelegate.locationManager?.location)
+        var query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 1.0)
+        var results = query.findObjects()!
+        for obj in results {
             events[0].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
         }
-        let within5miles = (PFQuery(className: "Event").whereKey(key: "Location", geopoint: location, maxDistance: 5.0).findObjects())!
-        for obj in within5miles {
+        query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 5.0)
+        results = query.findObjects()!
+        for obj in results {
             events[1].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
         }
-        let within10miles = (PFQuery(className: "Event").whereKey(key: "Location", geopoint: location, maxDistance: 10.0).findObjects())!
-        for obj in within10miles {
+        query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 10.0)
+        results = query.findObjects()!
+        for obj in results {
             events[2].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
         }
         nearbyEventsTableView.delegate = self
@@ -46,10 +48,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
         if segue.identifier == "viewEventFromList" {
             let event = sender as! Event
             let vc = segue.destinationViewController as! GuestEventViewController
-            vc.eName = event.name
-            vc.eTime = event.start_time.description
-            vc.eLocation = event.location.description
-            vc.eDescription = event.description
+            vc.event = event
             vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
         }
     }

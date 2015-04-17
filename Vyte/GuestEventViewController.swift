@@ -23,10 +23,7 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var navigationBar: UINavigationBar!
     
-    var eName : String!
-    var eTime : String!
-    var eLocation : String!
-    var eDescription : String!
+    var event: Event!
     
     let sections = ["Attending", "Not Attending", "Invited"]
     
@@ -38,10 +35,10 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         attendees.delegate = self
         attendees.dataSource = self
-        eventName.text = eName
-        eventTime.text = eTime
-        eventLocation.text = eLocation
-        eventDescription.text = eDescription
+        eventName.text = event.name
+        eventTime.text = event.start_time.description
+        eventLocation.text = event.location.description
+        eventDescription.text = event.description
         println(invitees)
     }
     

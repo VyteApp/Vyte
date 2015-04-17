@@ -67,19 +67,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         if segue.identifier == "Hosting" {
             let event = sender as! Event
             let vc = segue.destinationViewController as! HostEventViewController
-            vc.eName = event.name
-            vc.eTime = event.start_time.description
-            vc.eLocation = event.location.description
-            vc.eDescription = event.description
+            vc.event = event
             vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
 
         } else if segue.identifier == "Attending" {
             let event = sender as! Event
             let vc = segue.destinationViewController as! GuestEventViewController
-            vc.eName = event.name
-            vc.eTime = event.start_time.description
-            vc.eLocation = event.location.description
-            vc.eDescription = event.description
+            vc.event = event
             vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
             println(vc.invitees)
         }

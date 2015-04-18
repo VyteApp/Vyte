@@ -17,6 +17,21 @@ class EventCreatorViewController: UIViewController {
     @IBOutlet weak var descriptionField: UITextView!
     @IBOutlet weak var selectedDate: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var inviteFriendsButton: UIButton!
+    
+    var invitedFriends: [PFUser]!
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "inviteFriendsSegue"{
+            let vc = segue.destinationViewController as! InviteFriendsViewController
+            vc.invited = invitedFriends
+        }
+
+    }
+    
+    @IBAction func inviteButtonAction(sender: AnyObject){
+        performSegueWithIdentifier("inviteFriendsSegue", sender: self)
+    }
     
     @IBAction func datePickerAction(sender: AnyObject) {
         var dateFormatter = NSDateFormatter()

@@ -23,6 +23,12 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadNearbyEvents()
+        nearbyEventsTableView.delegate = self
+        nearbyEventsTableView.dataSource = self
+    }
+    
+    func loadNearbyEvents(){
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location : PFGeoPoint = PFGeoPoint(location: appDelegate.locationManager?.location)
         var query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 1.0)
@@ -40,8 +46,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
         for obj in results {
             events[2].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
         }
-        nearbyEventsTableView.delegate = self
-        nearbyEventsTableView.dataSource = self
+
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

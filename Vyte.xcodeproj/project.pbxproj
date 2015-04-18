@@ -12,6 +12,7 @@
 		0C1B7C1A1AD1D3F700C4B192 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */; };
 		0CB379111ADB35B80078AB9A /* GuestEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB379101ADB35B80078AB9A /* GuestEventViewController.swift */; };
 		0CB379131ADB35D90078AB9A /* HostEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB379121ADB35D90078AB9A /* HostEventViewController.swift */; };
+		0CC1B9E31AE2D4A40085BB6C /* InviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1B9E21AE2D4A40085BB6C /* InviteFriendsViewController.swift */; };
 		0CC59FA11AC13564001EDE1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA01AC13564001EDE1F /* AppDelegate.swift */; };
 		0CC59FA31AC13564001EDE1F /* EventsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA21AC13564001EDE1F /* EventsMapViewController.swift */; };
 		0CC59FA51AC13564001EDE1F /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FA41AC13564001EDE1F /* EventListViewController.swift */; };
@@ -41,6 +42,7 @@
 		0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0CB379101ADB35B80078AB9A /* GuestEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestEventViewController.swift; sourceTree = "<group>"; };
 		0CB379121ADB35D90078AB9A /* HostEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostEventViewController.swift; sourceTree = "<group>"; };
+		0CC1B9E21AE2D4A40085BB6C /* InviteFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewController.swift; sourceTree = "<group>"; };
 		0CC59F9B1AC13564001EDE1F /* Vyte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vyte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC59F9F1AC13564001EDE1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CC59FA01AC13564001EDE1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				0CC59F9E1AC13564001EDE1F /* Supporting Files */,
 				0CB379101ADB35B80078AB9A /* GuestEventViewController.swift */,
 				0CB379121ADB35D90078AB9A /* HostEventViewController.swift */,
+				0CC1B9E21AE2D4A40085BB6C /* InviteFriendsViewController.swift */,
 			);
 			path = Vyte;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CB379131ADB35D90078AB9A /* HostEventViewController.swift in Sources */,
+				0CC1B9E31AE2D4A40085BB6C /* InviteFriendsViewController.swift in Sources */,
 				0CC59FA51AC13564001EDE1F /* EventListViewController.swift in Sources */,
 				0C1B7C181AD1CF0B00C4B192 /* ProfileViewController.swift in Sources */,
 				0CB379111ADB35B80078AB9A /* GuestEventViewController.swift in Sources */,

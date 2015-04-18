@@ -36,16 +36,24 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
         }
     }
     
+    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+        showEventsAsPins()
+    }
+    
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let pin = view.annotation
-        performSegueWithIdentifier("viewEventFromMap", sender: pin)
+        if !pin.isEqual(mapView.userLocation as MKAnnotation){
+            self.performSegueWithIdentifier("viewEventFromMap", sender: pin)
+        }
     }
     
     func showEventsAsPins(){
         let location : PFGeoPoint = PFGeoPoint(location: mapView.userLocation.location)
+        println(location)
         let query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location)
         let results = query.findObjects()!
         for obj in results {
+            println(obj)
             let pin = MKPointAnnotation()
             let location = obj.objectForKey("Location") as! PFGeoPoint
             pin.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
@@ -53,55 +61,8 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
             pin.subtitle = obj.objectForKey("StartTime")!.description
             mapView.addAnnotation(pin)
             events.append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
-            println(pin.description)
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    
-    /*
-    func showDemoEvents(){
-        
-        var eventPinA = MKPointAnnotation()
-        eventPinA.coordinate = CLLocationCoordinate2DMake(42.359184, -71.093544)
-        eventPinA.title = "Demo"
-        eventPinA.subtitle = "4/7/2015 8:00PM"
-        mapView.addAnnotation(eventPinA)
-        
-        var eventPinB = MKPointAnnotation()
-        eventPinB.coordinate = CLLocationCoordinate2DMake(42.3561172, -71.09722090)
-        eventPinB.title = "Kappa Sigma Dinner"
-        eventPinB.subtitle = "4/7/2015 7:20PM"
-        mapView.addAnnotation(eventPinB)
-        
-        var eventPinC = MKPointAnnotation()
-        eventPinC.coordinate = CLLocationCoordinate2DMake(42.3630706, -71.0862851)
-        eventPinC.title = "Chipotle Burrito-Eating Contest"
-        eventPinC.subtitle = "4/7/2015 7:30PM"
-        mapView.addAnnotation(eventPinC)
-    }
-
-    func showNearbyEvents() {
-        let currentLocation = mapView.userLocation.coordinate
-        //radius = 50 m
-        //results limit = 25
-        //search text = nil
-        FBRequestConnection.startForPlacesSearchAtCoordinate(currentLocation,radiusInMeters: 50,resultsLimit: 25,searchText: nil,completionHandler: {(connection:FBRequestConnection!, result:AnyObject!, error:NSError!) in
-            if(error != nil){
-                NSLog("Error getting nearby events: \(error)");
-            }
-            //TODO: Create and dsiplay annotations for each event
-            //var event = MKPointAnnotation()
-            //event.setCoordinate()
-            //event.title = ""
-            //mapView.addAnnotation(event)
-            NSLog("\(result)")
-        })
-    }*/
 
 }
 

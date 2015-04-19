@@ -41,7 +41,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "viewEventFromList" {
-            let event = sender as! Event
+            let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
             //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
@@ -81,7 +81,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = events[indexPath.section][indexPath.row].name
+        cell.textLabel?.text = events[indexPath.section][indexPath.row].objectForKey("Name") as? String
 
         return cell
     }

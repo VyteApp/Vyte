@@ -44,12 +44,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             self.profilePic.image = image
         }
         let host: String = profileName.text!
-        let hostingEvents = (PFQuery(className: "Event").whereKey("Host", equalTo: host).findObjects())!
-        var hostingEvent : Event
-        for obj in hostingEvents{
-            hostingEvent = Event(host: PFUser.currentUser()!, name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate)
-            events[0].append(hostingEvent)
-        }
+        events[0] = (PFQuery(className: "Event").whereKey("Host", equalTo: host).findObjects())! as! [PFObject]
+
 //        let attendingEventIDs = PFUser.currentUser()?.objectForKey("AttendingEvents") as! [String]
 //        let attendingEvents = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())!
 //        var attendingEvent : Event
@@ -65,13 +61,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Hosting" {
-            let event = sender as! Event
+            let event = sender as! PFObject
             let vc = segue.destinationViewController as! HostEventViewController
             vc.event = event
             //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
 
         } else if segue.identifier == "Attending" {
-            let event = sender as! Event
+            let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
             //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
@@ -96,7 +92,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = events[indexPath.section][indexPath.row].name
+        cell.textLabel?.text = events[indexPath.section][indexPath.row].objectForKey("Name") as? String
         
         return cell
     }

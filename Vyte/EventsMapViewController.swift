@@ -36,9 +36,9 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
         }
     }
     
-    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
-        showEventsAsPins()
-    }
+   // func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+   //     showEventsAsPins()
+   //}
     
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let pin = view.annotation
@@ -51,17 +51,19 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
         let location : PFGeoPoint = PFGeoPoint(location: mapView.userLocation.location)
         println(location)
         let query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location)
-        let results = query.findObjects()!
-        for obj in results {
-            println(obj)
-            let pin = MKPointAnnotation()
-            let location = obj.objectForKey("Location") as! PFGeoPoint
-            pin.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            pin.title = obj.objectForKey("Name") as! String
-            pin.subtitle = obj.objectForKey("StartTime")!.description
-            mapView.addAnnotation(pin)
-            events.append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
-        }
+        query.findObjectsInBackgroundWithBlock({(results, error) -> Void in
+            for obj in results!{
+                println(obj)
+                let pin = MKPointAnnotation()
+                let location = obj.objectForKey("Location") as! PFGeoPoint
+                pin.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                pin.title = obj.objectForKey("Name") as! String
+                pin.subtitle = obj.objectForKey("StartTime")!.description
+                self.mapView.addAnnotation(pin)
+                self.events.append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
+            }
+
+        })
     }
 
 }

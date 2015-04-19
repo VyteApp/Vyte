@@ -35,7 +35,7 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         attendees.dataSource = self
         eventName.text = event.name
         eventTime.text = event.start_time.description
-        eventLocation.text = event.location.description
+        eventLocation.text = event.address
         eventDescription.text = event.description
     }
     

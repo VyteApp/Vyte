@@ -62,6 +62,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
             vc.invitees[1] = []
             vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
 
         } else if segue.identifier == "Attending" {
             let event = sender as! PFObject
@@ -70,6 +71,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
             vc.invitees[1] = []
             vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
+
         }
         
     }

@@ -47,6 +47,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
             vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
             vc.invitees[1] = []
             vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
         }
     }
 

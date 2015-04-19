@@ -71,7 +71,7 @@ class EventCreatorViewController: UIViewController {
     
     func dateFromString(date: String!) -> NSDate {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyy HH:mm"
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
         println(date)
         println(dateFormatter.dateFromString(date))
         return dateFormatter.dateFromString(date)!
@@ -90,7 +90,6 @@ class EventCreatorViewController: UIViewController {
             }
         })
         return geopoint
-
     }
     
     

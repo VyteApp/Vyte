@@ -47,6 +47,8 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
                                     NSLog("Username and fbID being set")
                                     PFUser.currentUser()!.username = result.name
                                     PFUser.currentUser()!.setValue(result.objectID, forKey: "fbId")
+                                    PFUser.currentUser()!.setValue([], forKey: "Invites")
+                                    PFUser.currentUser()!.setValue([], forKey: "Attending")
                                     PFUser.currentUser()!.save()
                                 }
                             }

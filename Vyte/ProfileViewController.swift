@@ -45,14 +45,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         let host: String = profileName.text!
         events[0] = (PFQuery(className: "Event").whereKey("Host", equalTo: host).findObjects())! as! [PFObject]
-
-//        let attendingEventIDs = PFUser.currentUser()?.objectForKey("AttendingEvents") as! [String]
-//        let attendingEvents = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())!
-//        var attendingEvent : Event
-//        for obj in attendingEvents{
-//            attendingEvent = Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate)
-//            events[1].append(attendingEvent)
-//        }
+        let me: PFUser = PFUser.currentUser()!
+        let attendingEventIDs = me.objectForKey("Attending") as! [String]
+        events[1] = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())! as! [PFObject]
         myEventsTableView.delegate = self
         myEventsTableView.dataSource = self
     
@@ -64,14 +59,20 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! HostEventViewController
             vc.event = event
-            //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+            vc.invitees[1] = []
+            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
 
         } else if segue.identifier == "Attending" {
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-            //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
-            println(vc.invitees)
+            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+            vc.invitees[1] = []
+            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
+
         }
         
     }

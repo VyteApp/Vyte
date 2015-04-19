@@ -28,7 +28,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "viewEventFromMap" {
             let pin = sender as! MKAnnotation
-            let event = events.filter({(e: PFObject) in e.objectForKey("Name") as! String == pin.title}).first!
+            let event = events.filter({(e: PFObject) in (e.objectForKey("Name") as! String) == pin.title}).first!
             let vc = segue.destinationViewController as! GuestEventViewController
 //            vc.event = event
 //            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]

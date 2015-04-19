@@ -31,7 +31,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
             let event = events.filter({(e: Event) in e.name == pin.title}).first!
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+            //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
 
         }
     }

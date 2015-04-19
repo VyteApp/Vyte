@@ -36,6 +36,7 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
             }
         })*/
         let me: String = (PFUser.currentUser()?.objectId)!
+        //TODO: Not show every user
         friends = PFUser.query()!.whereKey("objectId", notEqualTo: me).findObjects() as! [PFUser]
     }
     

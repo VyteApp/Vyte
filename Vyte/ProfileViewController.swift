@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     let sections = ["Hosting","Attending"]
     
-    var events : [[Event]] = [[],[]]
+    var events : [[PFObject]] = [[],[]]
     
     @IBAction func createEventButton(sender: UIButton) {
         performSegueWithIdentifier("createEventSegue", sender: self)
@@ -68,13 +68,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             let event = sender as! Event
             let vc = segue.destinationViewController as! HostEventViewController
             vc.event = event
-            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+            //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
 
         } else if segue.identifier == "Attending" {
             let event = sender as! Event
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+            //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
             println(vc.invitees)
         }
         

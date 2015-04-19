@@ -22,7 +22,6 @@
 		0CC59FB91AC13564001EDE1F /* VyteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FB81AC13564001EDE1F /* VyteTests.swift */; };
 		B465AC2211AB6DA4DC6039C6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 007A4CF752FB60E83F7E7E90 /* libPods.a */; };
 		FF7C46411ADAF8FC001780C1 /* EventCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C46401ADAF8FC001780C1 /* EventCreatorViewController.swift */; };
-		FF8DF7981AD365D100F07F9D /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8DF7971AD365D000F07F9D /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +56,6 @@
 		5C6BEC28FD17D0BE0F648282 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B29D1119C63F692743C52D8F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FF7C46401ADAF8FC001780C1 /* EventCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCreatorViewController.swift; sourceTree = "<group>"; };
-		FF8DF7971AD365D000F07F9D /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		FF9A1E941AD1DB29008E35A3 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,7 +105,6 @@
 				FF9A1E941AD1DB29008E35A3 /* Bridging-Header.h */,
 				0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */,
 				FF7C46401ADAF8FC001780C1 /* EventCreatorViewController.swift */,
-				FF8DF7971AD365D000F07F9D /* Event.swift */,
 				0C1B7C171AD1CF0B00C4B192 /* ProfileViewController.swift */,
 				0CC59FA01AC13564001EDE1F /* AppDelegate.swift */,
 				0CC59FA21AC13564001EDE1F /* EventsMapViewController.swift */,
@@ -309,7 +306,6 @@
 				0CC59FA11AC13564001EDE1F /* AppDelegate.swift in Sources */,
 				FF7C46411ADAF8FC001780C1 /* EventCreatorViewController.swift in Sources */,
 				0C1B7C1A1AD1D3F700C4B192 /* LoginViewController.swift in Sources */,
-				FF8DF7981AD365D100F07F9D /* Event.swift in Sources */,
 				0CC59FA31AC13564001EDE1F /* EventsMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

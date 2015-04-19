@@ -21,7 +21,7 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         
     @IBOutlet var attendees: UITableView!
     
-    var event : Event!
+    var event : PFObject!
     
     let sections = ["Attending", "Not Attending", "Invited"]
     
@@ -33,10 +33,10 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         attendees.delegate = self
         attendees.dataSource = self
-        eventName.text = event.name
-        eventTime.text = event.start_time.description
-        eventLocation.text = event.address
-        eventDescription.text = event.description
+        eventName.text = event.objectForKey("Name") as? String
+        eventTime.text = event.objectForKey("StartTime")!.description
+        eventLocation.text = event.objectForKey("Address") as? String
+        eventDescription.text = event.objectForKey("Description") as? String
     }
     
     @IBAction func Back(sender: UIBarButtonItem) {

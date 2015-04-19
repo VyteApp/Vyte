@@ -50,13 +50,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             hostingEvent = Event(host: PFUser.currentUser()!, name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate)
             events[0].append(hostingEvent)
         }
-        let attendingEventIDs = PFUser.currentUser()?.objectForKey("AttendingEvents") as! [String]
-        let attendingEvents = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())!
-        var attendingEvent : Event
-        for obj in attendingEvents{
-            attendingEvent = Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate)
-            events[1].append(attendingEvent)
-        }
+//        let attendingEventIDs = PFUser.currentUser()?.objectForKey("AttendingEvents") as! [String]
+//        let attendingEvents = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())!
+//        var attendingEvent : Event
+//        for obj in attendingEvents{
+//            attendingEvent = Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate)
+//            events[1].append(attendingEvent)
+//        }
         myEventsTableView.delegate = self
         myEventsTableView.dataSource = self
     

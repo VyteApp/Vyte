@@ -13,7 +13,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
 
     @IBOutlet weak var mapView: MKMapView!
     
-    var events : [Event] = []
+    var events : [PFObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +28,10 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "viewEventFromMap" {
             let pin = sender as! MKAnnotation
-            let event = events.filter({(e: Event) in e.name == pin.title}).first!
+            let event = events.filter({(e: PFObject) in e.objectForKey("Name") as! String == pin.title}).first!
             let vc = segue.destinationViewController as! GuestEventViewController
-            vc.event = event
-            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+//            vc.event = event
+//            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
 
         }
     }
@@ -52,7 +52,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
         println(location)
         let query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location)
         query.findObjectsInBackgroundWithBlock({(results, error) -> Void in
-            for obj in results!{
+            for obj in (results! as! [PFObject]) {
                 println(obj)
                 let pin = MKPointAnnotation()
                 let location = obj.objectForKey("Location") as! PFGeoPoint
@@ -60,7 +60,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
                 pin.title = obj.objectForKey("Name") as! String
                 pin.subtitle = obj.objectForKey("StartTime")!.description
                 self.mapView.addAnnotation(pin)
-                self.events.append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
+                self.events.append(obj)
             }
 
         })

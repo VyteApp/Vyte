@@ -23,18 +23,14 @@ class Event {
     var location: PFGeoPoint!
     var start_time: NSDate!
     var end_time: NSDate!
-    var timezone: Int!
-    var rsvp_status: String!
     var objectId : AnyObject
     
-    init(host: PFUser!, name: String!, address: String!, location: PFGeoPoint!, start_time: NSDate!, end_time: NSDate!, timezone: Int!, rsvp_status: String!) {
+    init(host: PFUser!, name: String!, address: String!, location: PFGeoPoint!, start_time: NSDate!, end_time: NSDate!) {
         self.host = host
         self.name = name
         self.location = location
         self.start_time = start_time
         self.end_time = end_time
-        self.timezone = timezone
-        self.rsvp_status = rsvp_status
         self.objectId = 0
     }
     

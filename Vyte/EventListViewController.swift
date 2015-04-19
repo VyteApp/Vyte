@@ -44,26 +44,11 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-            //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+            vc.invitees[1] = []
+            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
         }
     }
-    
-    /*
-    func getFacebookEvents() {
-        var completionHandler = {
-            connection, result, error in
-            println("result: \(result)")
-            } as FBRequestHandler;
-        
-        if let session = PFFacebookUtils.session() {
-            //TODO: Get access to "user_events" permission
-            println("permissions: \(session.permissions)")
-            var token = session.accessTokenData.accessToken
-            if session.isOpen {
-                FBRequestConnection.startWithGraphPath("me/events", completionHandler: completionHandler)
-            }
-        }
-    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

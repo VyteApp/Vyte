@@ -25,7 +25,7 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let sections = ["Attending", "Not Attending", "Invited"]
     
-    var invitees : [[String]] = [["Alex", "Bob"],["Carol"], ["Denise"]]
+    var invitees : [[PFUser]] = [[],[],[]]
     
     let textCellIdentifier = "TextCell"
     
@@ -54,7 +54,7 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = invitees[indexPath.section][indexPath.row]
+        cell.textLabel?.text = invitees[indexPath.section][indexPath.row].username
         
         return cell
     }

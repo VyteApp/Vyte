@@ -50,18 +50,12 @@ class EventCreatorViewController: UIViewController {
         event["Name"] = nameField.text
         event["Description"]  = descriptionField.text
         event["Address"]  = locationField.text
-        //event["Location"]  = getCoordinates(address)
+        event["Location"]  = getCoordinates(locationField.text)
         event["StartTime"]  = datePicker.date
         event["Host"]  = PFUser.currentUser()!.username
         event["Invites"] = invitedFriends.map({$0.objectId!})
         event.save()
         
-        /*var invites: [String]
-        for user in invitedFriends{
-            invites = user.objectForKey("Invites") as! [String]
-            invites.append(event.objectId)
-            user.setObject(invites, forKey: "Invites")
-        }*/
         let vc = self.presentingViewController as! ProfileViewController
         vc.events[0].append(event)
         self.dismissViewControllerAnimated(false, completion: nil)

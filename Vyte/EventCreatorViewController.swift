@@ -19,7 +19,7 @@ class EventCreatorViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var inviteFriendsButton: UIButton!
     
-    var invitedFriends: [PFUser]!
+    var invitedFriends: [PFUser]! = []
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "inviteFriendsSegue"{

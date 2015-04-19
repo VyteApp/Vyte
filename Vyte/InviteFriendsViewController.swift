@@ -19,7 +19,7 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
     
     var friends: [PFUser]!
     
-    var invited: [PFUser]!
+    var invited: [PFUser]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +36,7 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
             }
         })*/
         let me: String = (PFUser.currentUser()?.objectId)!
-        friends = PFQuery(className: "User").whereKey("objectId", notEqualTo: me).findObjects() as! [PFUser]
-        println(friends)
+        friends = PFUser.query()!.whereKey("objectId", notEqualTo: me).findObjects() as! [PFUser]
     }
     
     @IBAction func cancel(sender: AnyObject) {
@@ -46,8 +45,7 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @IBAction func done(sender: AnyObject) {
-        let vc = self.presentingViewController as! EventCreatorViewController
-        var invList: [PFUser] = []
+        /*var invList: [PFUser] = []
         var indexPath : NSIndexPath
         var cell : UITableViewCell
         for(var i=0;i<friends.count;i++){
@@ -57,7 +55,8 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
                 invList.append(friends[i])
             }
         }
-        invited = invList
+        invited = invList*/
+        let vc = self.presentingViewController as! EventCreatorViewController
         vc.invitedFriends = invited
         self.dismissViewControllerAnimated(false, completion: nil)
         println("done")
@@ -84,22 +83,20 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
         return cell
     }
     
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let cell = tableView.dequeueReusableCellWithIdentifier(customCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
-        
-        //let user = friends[indexPath.row] as PFUser
-        if cell.accessoryType == UITableViewCellAccessoryType.Checkmark{
-            cell.accessoryType = UITableViewCellAccessoryType.None
-            //let index = find(invited,user)
-            //invited.removeAtIndex(index!)
+
+        let user = friends[indexPath.row] as PFUser
+
+        if contains(invited,user){
+            let index = find(invited,user)
+            invited.removeAtIndex(index!)
         }else{
-            //invited.append(user)
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            invited.append(user)
         }
 
-        println(friends[indexPath.row].objectForKey("username"))
-
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
     }
     
 

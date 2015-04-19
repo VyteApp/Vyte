@@ -17,7 +17,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     
     let sections = ["Within 1 mile", "Within 5 miles", "Within 10 miles"]
     
-    var events : [[Event]] = [[],[],[]]
+    var events : [[PFObject]] = [[],[],[]]
 
     let textCellIdentifier = "TextCell"
 
@@ -32,21 +32,11 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location : PFGeoPoint = PFGeoPoint(location: appDelegate.locationManager?.location)
         var query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 1.0)
-        var results = query.findObjects()!
-        for obj in results {
-            events[0].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
-        }
+        events[0] = query.findObjects() as! [PFObject]
         query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 5.0)
-        results = query.findObjects()!
-        for obj in results {
-            events[1].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
-        }
+        events[1] = query.findObjects()! as! [PFObject]
         query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 10.0)
-        results = query.findObjects()!
-        for obj in results {
-            events[2].append(Event(name: obj["Name"] as! String, description: obj["Description"] as! String, address: obj["Address"] as! String, location: obj["Location"] as! PFGeoPoint, start_time: obj["StartTime"] as! NSDate))
-        }
-
+        events[2] = query.findObjects()! as! [PFObject]
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -54,7 +44,7 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
             let event = sender as! Event
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-            vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
+            //vc.invitees = [event.getAttendingUsers().map({$0.username!}),[],[]]
         }
     }
     

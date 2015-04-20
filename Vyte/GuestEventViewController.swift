@@ -50,6 +50,7 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func acceptInvite(sender: UIButton){
+        println("Accepted Invite")
         let objectId = PFUser.currentUser()?.objectId
         var invited: [String] = PFUser.currentUser()?.objectForKey("Invited") as! [String]
         var index = find(invited,objectId!)
@@ -82,6 +83,7 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func declineInvite(sender: UIButton){
+        println("Declined Invite")
         let objectId = PFUser.currentUser()?.objectId
         var invited: [String] = PFUser.currentUser()?.objectForKey("Invited") as! [String]
         var index = find(invited,objectId!)

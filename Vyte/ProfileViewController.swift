@@ -18,9 +18,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet var myEventsTableView: UITableView!
     
-    let sections = ["Hosting","Attending"]
+    let sections = ["Hosting","Attending","Invites"]
     
-    var events : [[PFObject]] = [[],[]]
+    var events : [[PFObject]] = [[],[],[]]
     
     @IBAction func createEventButton(sender: UIButton) {
         performSegueWithIdentifier("createEventSegue", sender: self)
@@ -43,11 +43,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             self.profilePic.contentMode = UIViewContentMode.ScaleAspectFit
             self.profilePic.image = image
         }
-        let host: String = profileName.text!
-        events[0] = (PFQuery(className: "Event").whereKey("Host", equalTo: host).findObjects())! as! [PFObject]
+        events[0] = (PFQuery(className: "Event").whereKey("Host", equalTo: PFUser.currentUser()!.objectId!).findObjects())! as! [PFObject]
         let me: PFUser = PFUser.currentUser()!
         let attendingEventIDs = me.objectForKey("Attending") as! [String]
         events[1] = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())! as! [PFObject]
+        let invitedEventIDs = me.objectForKey("Invites") as! [String]
+        events[2] = (PFQuery(className: "Event").whereKey("objectId", containedIn: invitedEventIDs).findObjects())! as! [PFObject]
+        println("Invites",events[2].description)
         myEventsTableView.delegate = self
         myEventsTableView.dataSource = self
     
@@ -99,7 +101,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         println(events[indexPath.section][indexPath.row])
-        performSegueWithIdentifier(sections[indexPath.section], sender: events[indexPath.section][indexPath.row])
+        if sections[indexPath.section] == "Invites" {
+            performSegueWithIdentifier("Attending", sender: events[indexPath.section][indexPath.row])
+        }else{
+            performSegueWithIdentifier(sections[indexPath.section], sender: events[indexPath.section][indexPath.row])
+        }
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -33,47 +33,47 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var invitees : [[PFUser]] = [[],[],[]]
     
+    var invitationIndex : Int!
+    
     let textCellIdentifier = "TextCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+        invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
+        invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
         attendees.delegate = self
         attendees.dataSource = self
         eventName.text = event.objectForKey("Name") as? String
         eventTime.text = event.objectForKey("StartTime")!.description
         eventLocation.text = event.objectForKey("Address") as? String
         eventDescription.text = event.objectForKey("Description") as? String
-        if !contains(invitees[2],PFUser.currentUser()!){
-            acceptInviteButton.hidden = true
-            declineInviteButton.hidden = true
+        acceptInviteButton.hidden = true
+        declineInviteButton.hidden = true
+        for (var i=0;i<invitees[2].count;i++){
+            if invitees[2][i].objectId == PFUser.currentUser()!.objectId{
+                acceptInviteButton.hidden = false
+                declineInviteButton.hidden = false
+                invitationIndex = i
+                break
+            }
         }
     }
     
     @IBAction func acceptInvite(sender: UIButton){
         println("Accepted Invite")
-        let objectId = PFUser.currentUser()?.objectId
-        var invited: [String] = PFUser.currentUser()?.objectForKey("Invited") as! [String]
-        var index = find(invited,objectId!)
-        invited.removeAtIndex(index!)
-        PFUser.currentUser()?.setObject(invited, forKey: "Invited")
-        var attending: [String] = PFUser.currentUser()?.objectForKey("Attending") as! [String]
-        attending.append(objectId!)
-        PFUser.currentUser()?.setObject(attending, forKey: "Attending")
+        var objectId = event.objectId
+        PFUser.currentUser()?.removeObject(objectId!, forKey: "Invites")
+        PFUser.currentUser()?.addObject(objectId!, forKey: "Attending")
         PFUser.currentUser()?.save()
         
-        var eventObj = PFQuery(className: "Event").whereKey("objectId", equalTo: event.objectId!).findObjects()!.first as! PFObject
-        invited = eventObj.objectForKey("Invited") as! [String]
-        index = find(invited,objectId!)
-        invited.removeAtIndex(index!)
-        eventObj.setObject(invited, forKey: "Invited")
-        attending = eventObj.objectForKey("Attending") as! [String]
-        attending.append(objectId!)
-        eventObj.setObject(attending, forKey: "Attending")
-        eventObj.save()
+        objectId = PFUser.currentUser()?.objectId
+        event.removeObject(objectId!, forKey: "Invites")
+        event.addObject(objectId!, forKey: "Attending")
+        event.save()
 
         
-        index = find(invitees[2],PFUser.currentUser()!)
-        invitees[2].removeAtIndex(index!)
+        invitees[2].removeAtIndex(invitationIndex)
         invitees[0].append(PFUser.currentUser()!)
         
         acceptInviteButton.hidden = true
@@ -84,29 +84,17 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func declineInvite(sender: UIButton){
         println("Declined Invite")
-        let objectId = PFUser.currentUser()?.objectId
-        var invited: [String] = PFUser.currentUser()?.objectForKey("Invited") as! [String]
-        var index = find(invited,objectId!)
-        invited.removeAtIndex(index!)
-        PFUser.currentUser()?.setObject(invited, forKey: "Invited")
-        var notAttending: [String] = PFUser.currentUser()?.objectForKey("NotAttending") as! [String]
-        notAttending.append(objectId!)
-        PFUser.currentUser()?.setObject(notAttending, forKey: "NotAttending")
+        var objectId = event.objectId
+        PFUser.currentUser()?.removeObject(objectId!, forKey: "Invites")
+        PFUser.currentUser()?.addObject(objectId!, forKey: "NotAttending")
         PFUser.currentUser()?.save()
-
-        var eventObj = PFQuery(className: "Event").whereKey("objectId", equalTo: event.objectId!).findObjects()!.first as! PFObject
-        invited = eventObj.objectForKey("Invited") as! [String]
-        index = find(invited,objectId!)
-        invited.removeAtIndex(index!)
-        eventObj.setObject(invited, forKey: "Invited")
-        notAttending = eventObj.objectForKey("NotAttending") as! [String]
-        notAttending.append(objectId!)
-        eventObj.setObject(notAttending, forKey: "NotAttending")
-        eventObj.save()
         
+        objectId = PFUser.currentUser()?.objectId
+        event.removeObject(objectId!, forKey: "Invites")
+        event.addObject(objectId!, forKey: "NotAttending")
+        event.save()
         
-        index = find(invitees[2],PFUser.currentUser()!)
-        invitees[2].removeAtIndex(index!)
+        invitees[2].removeAtIndex(invitationIndex)
         invitees[1].append(PFUser.currentUser()!)
         
         acceptInviteButton.hidden = true

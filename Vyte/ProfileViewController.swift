@@ -48,6 +48,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         let attendingEventIDs = me.objectForKey("Attending") as! [String]
         events[1] = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())! as! [PFObject]
         let invitedEventIDs = me.objectForKey("Invites") as! [String]
+        println("InvitedEventIDs",invitedEventIDs)
         events[2] = (PFQuery(className: "Event").whereKey("objectId", containedIn: invitedEventIDs).findObjects())! as! [PFObject]
         println("Invites",events[2].description)
         myEventsTableView.delegate = self
@@ -61,17 +62,17 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! HostEventViewController
             vc.event = event
-            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+            /*vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
             vc.invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
-            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]*/
 
         } else if segue.identifier == "Attending" {
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+            /*vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
             vc.invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
-            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]*/
 
         }
         

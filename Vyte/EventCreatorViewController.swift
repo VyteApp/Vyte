@@ -55,6 +55,7 @@ class EventCreatorViewController: UIViewController {
         event["Host"]  = PFUser.currentUser()!.username
         event["Invites"] = invitedFriends.map({$0.objectId!})
         event["Attending"] = []
+        event["NotAttending"] = []
         event.save()
         
         let vc = self.presentingViewController as! ProfileViewController

@@ -29,12 +29,19 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
         if segue.identifier == "viewEventFromMap" {
             let pin = sender as! MKAnnotation
             let event = events.filter({(e: PFObject) in e.objectForKey("Name") as? String == pin.title}).first!
-            let vc = segue.destinationViewController as! GuestEventViewController
-            vc.event = event
-            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
-            vc.invitees[1] = []
-            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
-            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
+            if (event["Host"] as! String) == PFUser.currentUser()?.objectId{
+                let vc = segue.destinationViewController as! HostEventViewController
+                vc.event = event
+                vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+                vc.invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
+                vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            }else{
+                let vc = segue.destinationViewController as! GuestEventViewController
+                vc.event = event
+                vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+                vc.invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
+                vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+            }
         }
     }
     

@@ -289,6 +289,24 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f1-6u-Is2">
+                                <rect key="frame" x="30" y="164" width="90" height="30"/>
+                                <state key="normal" title="Accept Invite">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="acceptInvite:" destination="p4g-7B-w67" eventType="touchUpInside" id="oYO-rG-skK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYg-K5-ykf">
+                                <rect key="frame" x="174" y="164" width="92" height="30"/>
+                                <state key="normal" title="Decline Invite">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="declineInvite:" destination="p4g-7B-w67" eventType="touchUpInside" id="Pci-FE-LFx"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6MI-CM-er6">
                                 <rect key="frame" x="301" y="65" width="269" height="142"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -320,7 +338,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="acceptInviteButton" destination="6f1-6u-Is2" id="z3W-Ce-BOh"/>
                         <outlet property="attendees" destination="5La-NS-z8K" id="1YR-fs-PVl"/>
+                        <outlet property="declineInviteButton" destination="nYg-K5-ykf" id="Th3-ez-lRb"/>
                         <outlet property="eventDescription" destination="6MI-CM-er6" id="6FN-cV-bon"/>
                         <outlet property="eventLocation" destination="IpP-WZ-rUI" id="a3R-6K-wim"/>
                         <outlet property="eventName" destination="wYm-R2-ghQ" id="FZ0-zL-79H"/>
@@ -422,7 +442,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="inviteButtonAction:" destination="iTI-9a-aBe" eventType="touchDragInside" id="3vN-oI-CLN"/>
+                                    <action selector="inviteButtonAction:" destination="iTI-9a-aBe" eventType="touchUpInside" id="WMs-ue-mOV"/>
                                 </connections>
                             </button>
                         </subviews>

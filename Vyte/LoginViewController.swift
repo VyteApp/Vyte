@@ -49,6 +49,7 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
                                     PFUser.currentUser()!.setValue(result.objectID, forKey: "fbId")
                                     PFUser.currentUser()!.setValue([], forKey: "Invites")
                                     PFUser.currentUser()!.setValue([], forKey: "Attending")
+                                    PFUser.currentUser()!.setValue([], forKey: "NotAttending")
                                     PFUser.currentUser()!.save()
                                 }
                             }

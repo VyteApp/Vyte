@@ -33,7 +33,6 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
                     }
                     if let session = PFFacebookUtils.session() {
                         if session.isOpen {
-                            NSLog("Session is Open")
                             FBRequestConnection.startForMeWithCompletionHandler({ (connection: FBRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
                                 if error != nil {
                                     println(error.description)
@@ -51,7 +50,7 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
                     user!.setValue([], forKey: "NotAttending")
                     user!.save()
                 } else {
-                    NSLog("User logged in through Facebook: \(user)")
+                    println("User logged in through Facebook: \(user)")
                 }
                 //if self.navigationController?.visibleViewController is LoginViewController {
                 self.performSegueWithIdentifier("LoggedIn", sender: self)

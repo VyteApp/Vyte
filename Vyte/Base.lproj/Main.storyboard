@@ -35,7 +35,8 @@
                     <tabBarItem key="tabBarItem" title="Events Map" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="mapView" destination="zf0-Ec-bCU" id="1Aq-h2-4rk"/>
-                        <segue destination="p4g-7B-w67" kind="presentation" identifier="viewEventFromMap" id="6Jm-Xo-0lt"/>
+                        <segue destination="p4g-7B-w67" kind="presentation" identifier="viewGuestEventFromMap" id="6Jm-Xo-0lt"/>
+                        <segue destination="OfA-7G-UXv" kind="presentation" identifier="viewHostEventFromMap" id="15s-Yp-UGa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -213,7 +214,8 @@
                     <connections>
                         <outlet property="nearbyEventsLabel" destination="Rxg-7s-Qfe" id="9d8-bt-DXd"/>
                         <outlet property="nearbyEventsTableView" destination="oMM-YE-BZF" id="aaZ-yO-uN0"/>
-                        <segue destination="p4g-7B-w67" kind="presentation" identifier="viewEventFromList" id="FEV-Es-kDe"/>
+                        <segue destination="p4g-7B-w67" kind="presentation" identifier="viewGuestEventFromList" id="FEV-Es-kDe"/>
+                        <segue destination="OfA-7G-UXv" kind="presentation" identifier="viewHostEventFromList" id="Fss-os-NeX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -767,6 +769,7 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kHa-mk-ag3"/>
+        <segue reference="15s-Yp-UGa"/>
+        <segue reference="6Jm-Xo-0lt"/>
     </inferredMetricsTieBreakers>
 </document>

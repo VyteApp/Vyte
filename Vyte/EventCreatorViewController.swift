@@ -52,7 +52,7 @@ class EventCreatorViewController: UIViewController {
         event["Address"]  = locationField.text
         event["Location"]  = getCoordinates(locationField.text)
         event["StartTime"]  = datePicker.date
-        event["Host"]  = PFUser.currentUser()!.username
+        event["Host"]  = PFUser.currentUser()!.objectId
         event["Invites"] = invitedFriends.map({$0.objectId!})
         event["Attending"] = []
         event["NotAttending"] = []

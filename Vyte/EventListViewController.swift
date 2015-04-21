@@ -23,12 +23,15 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadNearbyEvents()
         nearbyEventsTableView.delegate = self
         nearbyEventsTableView.dataSource = self
     }
     
-    func loadNearbyEvents(){
+    override func viewWillAppear(animated: Bool) {
+        loadEventData()
+    }
+    
+    func loadEventData(){
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location : PFGeoPoint = PFGeoPoint(location: appDelegate.locationManager?.location)
         var query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 1.0)
@@ -37,24 +40,18 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
         events[1] = query.findObjects()! as! [PFObject]
         query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 10.0)
         events[2] = query.findObjects()! as! [PFObject]
+        nearbyEventsTableView.reloadData()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "viewEventFromList" {
+        if segue.identifier == "viewGuestEventFromList" {
             let event = sender as! PFObject
-            if (event["Host"] as! String) == PFUser.currentUser()?.objectId{
-                let vc = segue.destinationViewController as! HostEventViewController
-                vc.event = event
-                /*vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
-                vc.invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
-                vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]*/
-            }else{
-                let vc = segue.destinationViewController as! GuestEventViewController
-                vc.event = event
-                /*vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
-                vc.invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
-                vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]*/
-            }
+            let vc = segue.destinationViewController as! GuestEventViewController
+            vc.event = event
+        } else if segue.identifier == "viewHostEventFromList"{
+            let event = sender as! PFObject
+            let vc = segue.destinationViewController as! HostEventViewController
+            vc.event = event
         }
     }
 
@@ -81,7 +78,13 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        performSegueWithIdentifier("viewEventFromList", sender: events[indexPath.section][indexPath.row])
+        let event = events[indexPath.section][indexPath.row]
+        if (event["Host"] as! String) == PFUser.currentUser()?.objectId{
+            performSegueWithIdentifier("viewHostEventFromList", sender: event)
+        }else{
+            performSegueWithIdentifier("viewGuestEventFromList", sender: event)
+        }
+
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

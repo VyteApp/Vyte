@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import CoreLocation
 
 class EventCreatorViewController: UIViewController {
     
@@ -20,7 +21,7 @@ class EventCreatorViewController: UIViewController {
     @IBOutlet weak var inviteFriendsButton: UIButton!
     
     var invitedFriends: [PFUser]! = []
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "inviteFriendsSegue"{
             let vc = segue.destinationViewController as! InviteFriendsViewController
@@ -50,14 +51,25 @@ class EventCreatorViewController: UIViewController {
         event["Name"] = nameField.text
         event["Description"]  = descriptionField.text
         event["Address"]  = locationField.text
-        event["Location"]  = getCoordinates(locationField.text)
+        //event["Location"]  = getCoordinates(locationField.text)
         event["StartTime"]  = datePicker.date
         event["Host"]  = PFUser.currentUser()!.objectId
         event["Invites"] = invitedFriends.map({$0.objectId!})
         event["Attending"] = []
         event["NotAttending"] = []
-        event.save()
-        
+        CLGeocoder().geocodeAddressString(locationField.text, completionHandler: {(placemarks,error) -> Void in
+            if (error != nil) {
+                println("error: \(error)")
+                event["Location"] = PFGeoPoint()
+            }
+            else if let placemark = placemarks?[0] as? CLPlacemark {
+                var coordinates:CLLocationCoordinate2D = placemark.location.coordinate
+                println("latitude: \(coordinates.latitude)")
+                println("longitude: \(coordinates.longitude)")
+                event["Location"] = PFGeoPoint(location: placemark.location)
+            }
+            event.save()
+        })
         self.dismissViewControllerAnimated(false, completion: nil)
         println("done")
         
@@ -70,25 +82,6 @@ class EventCreatorViewController: UIViewController {
         println(dateFormatter.dateFromString(date))
         return dateFormatter.dateFromString(date)!
     }
-    
-    func getCoordinates(address: String!) -> PFGeoPoint {
-        var geopoint: PFGeoPoint = PFGeoPoint()
-        CLGeocoder().geocodeAddressString(address, completionHandler: {(placemarks,error) -> Void in
-            if (error != nil) {println("error: \(error)")}
-            else if let placemark = placemarks?[0] as? CLPlacemark {
-                var coordinates:CLLocationCoordinate2D = placemark.location.coordinate
-                println("latitude: \(coordinates.latitude)")
-                println("longitude: \(coordinates.longitude)")
-                geopoint = PFGeoPoint(latitude: coordinates.latitude, longitude: coordinates.longitude)
-            } else {
-                println("CLGeocoder error is nil and placemark is nil...")
-            }
-        })
-        return geopoint
-
-    }
-    
-    
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         nameField.resignFirstResponder()

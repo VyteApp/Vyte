@@ -55,6 +55,7 @@
 		0CC59FB81AC13564001EDE1F /* VyteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyteTests.swift; sourceTree = "<group>"; };
 		5C6BEC28FD17D0BE0F648282 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B29D1119C63F692743C52D8F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		FF1BEA141AE6D0BF007CB2FE /* ParsePushDevelopmentProfile.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; name = ParsePushDevelopmentProfile.mobileprovision; path = ../../../../Downloads/ParsePushDevelopmentProfile.mobileprovision; sourceTree = "<group>"; };
 		FF7C46401ADAF8FC001780C1 /* EventCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCreatorViewController.swift; sourceTree = "<group>"; };
 		FF9A1E941AD1DB29008E35A3 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +124,7 @@
 		0CC59F9E1AC13564001EDE1F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FF1BEA141AE6D0BF007CB2FE /* ParsePushDevelopmentProfile.mobileprovision */,
 				0CC59F9F1AC13564001EDE1F /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -430,6 +432,7 @@
 			baseConfigurationReference = 5C6BEC28FD17D0BE0F648282 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: matt miklasevich (XUF7ZY9P34)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -439,6 +442,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vyte/Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -447,6 +451,7 @@
 			baseConfigurationReference = B29D1119C63F692743C52D8F /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: matt miklasevich (XUF7ZY9P34)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -456,6 +461,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vyte/Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -463,6 +469,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: matt miklasevich (XUF7ZY9P34)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -482,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: matt miklasevich (XUF7ZY9P34)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

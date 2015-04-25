@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     var events : [[PFObject]] = [[],[],[]]
     
     @IBAction func createEventButton(sender: UIButton) {
+        
         performSegueWithIdentifier("createEventSegue", sender: self)
     }
     

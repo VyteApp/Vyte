@@ -19,7 +19,7 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
     
     var friends: [PFUser]!
     
-    var invited: [PFUser]! = []
+    var invited: [PFUser]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,17 +46,6 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @IBAction func done(sender: AnyObject) {
-        /*var invList: [PFUser] = []
-        var indexPath : NSIndexPath
-        var cell : UITableViewCell
-        for(var i=0;i<friends.count;i++){
-            indexPath = NSIndexPath(forRow: i, inSection: 0)
-            cell = friendsTableView.dequeueReusableCellWithIdentifier(customCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
-            if cell.accessoryType == UITableViewCellAccessoryType.Checkmark{
-                invList.append(friends[i])
-            }
-        }
-        invited = invList*/
         let vc = self.presentingViewController as! EventCreatorViewController
         vc.invitedFriends = invited
         self.dismissViewControllerAnimated(false, completion: nil)
@@ -75,10 +64,11 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
         let user = friends[indexPath.row] as PFUser
         cell.textLabel?.text = user.objectForKey("username") as? String
 
-        if contains(invited,user){
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-        }else{
-            cell.accessoryType = UITableViewCellAccessoryType.None
+        for (var i=0;i<invited.count;i++){
+            if invited[i].objectId == user.objectId{
+                cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+                break
+            }
         }
         
         return cell
@@ -90,11 +80,17 @@ class InviteFriendsViewController: UIViewController, UITableViewDataSource, UITa
 
         let user = friends[indexPath.row] as PFUser
 
-        if contains(invited,user){
-            let index = find(invited,user)
-            invited.removeAtIndex(index!)
-        }else{
+        var index: Int!
+        for (var i=0;i<invited.count;i++){
+            if invited[i].objectId == user.objectId{
+                index = i
+                break
+            }
+        }
+        if index == nil {
             invited.append(user)
+        } else {
+            invited.removeAtIndex(index)
         }
 
         tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)

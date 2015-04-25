@@ -58,8 +58,6 @@ class EventCreatorViewController: UIViewController {
         event["NotAttending"] = []
         event.save()
         
-        let vc = self.presentingViewController as! ProfileViewController
-        vc.events[0].append(event)
         self.dismissViewControllerAnimated(false, completion: nil)
         println("done")
         
@@ -78,11 +76,12 @@ class EventCreatorViewController: UIViewController {
         CLGeocoder().geocodeAddressString(address, completionHandler: {(placemarks,error) -> Void in
             if (error != nil) {println("error: \(error)")}
             else if let placemark = placemarks?[0] as? CLPlacemark {
-                var placemark:CLPlacemark = placemarks[0] as! CLPlacemark
                 var coordinates:CLLocationCoordinate2D = placemark.location.coordinate
                 println("latitude: \(coordinates.latitude)")
                 println("longitude: \(coordinates.longitude)")
-                return geopoint = PFGeoPoint(latitude: coordinates.latitude, longitude: coordinates.longitude)
+                geopoint = PFGeoPoint(latitude: coordinates.latitude, longitude: coordinates.longitude)
+            } else {
+                println("CLGeocoder error is nil and placemark is nil...")
             }
         })
         return geopoint

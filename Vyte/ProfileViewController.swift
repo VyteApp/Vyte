@@ -18,11 +18,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet var myEventsTableView: UITableView!
     
-    let sections = ["Hosting","Attending"]
+    let sections = ["Hosting","Attending","Invites"]
     
-    var events : [[PFObject]] = [[],[]]
+    var events : [[PFObject]] = [[],[],[]]
     
     @IBAction func createEventButton(sender: UIButton) {
+        
         performSegueWithIdentifier("createEventSegue", sender: self)
     }
     
@@ -43,14 +44,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             self.profilePic.contentMode = UIViewContentMode.ScaleAspectFit
             self.profilePic.image = image
         }
-        let host: String = profileName.text!
-        events[0] = (PFQuery(className: "Event").whereKey("Host", equalTo: host).findObjects())! as! [PFObject]
-        let me: PFUser = PFUser.currentUser()!
-        let attendingEventIDs = me.objectForKey("Attending") as! [String]
-        events[1] = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())! as! [PFObject]
         myEventsTableView.delegate = self
         myEventsTableView.dataSource = self
+    }
     
+    override func viewWillAppear(animated: Bool) {
+        loadEventData()
     }
 
     
@@ -59,22 +58,22 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! HostEventViewController
             vc.event = event
-            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
-            vc.invitees[1] = []
-            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
-            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
-
         } else if segue.identifier == "Attending" {
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
-            vc.invitees[1] = []
-            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
-            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
-
         }
         
+    }
+    
+    func loadEventData(){
+        events[0] = (PFQuery(className: "Event").whereKey("Host", equalTo: PFUser.currentUser()!.objectId!).findObjects())! as! [PFObject]
+        let me: PFUser = PFUser.currentUser()!
+        let attendingEventIDs = me.objectForKey("Attending") as! [String]
+        events[1] = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())! as! [PFObject]
+        let invitedEventIDs = me.objectForKey("Invites") as! [String]
+        events[2] = (PFQuery(className: "Event").whereKey("objectId", containedIn: invitedEventIDs).findObjects())! as! [PFObject]
+        myEventsTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -101,7 +100,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         println(events[indexPath.section][indexPath.row])
-        performSegueWithIdentifier(sections[indexPath.section], sender: events[indexPath.section][indexPath.row])
+        if sections[indexPath.section] == "Invites" {
+            performSegueWithIdentifier("Attending", sender: events[indexPath.section][indexPath.row])
+        }else{
+            performSegueWithIdentifier(sections[indexPath.section], sender: events[indexPath.section][indexPath.row])
+        }
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

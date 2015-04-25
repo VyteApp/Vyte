@@ -20,40 +20,37 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
         PFFacebookUtils.logInWithPermissions(self.permissions, block: {
             (user: PFUser?, error: NSError?) -> Void in
             if user == nil {
-                NSLog("The user cancelled the Facebook login.")
+                println("The user cancelled the Facebook login.")
             } else {
                 if user!.isNew {
-                    NSLog("User signed up and logged in through Facebook: \(user)")
-                } else {
-                    NSLog("User logged in through Facebook: \(user)")
-                }
-                if !PFFacebookUtils.isLinkedWithUser(user!) {
-                    PFFacebookUtils.linkUser(user!, permissions: self.permissions, block: {
-                        (succeeded: Bool, error: NSError?) -> Void in
-                        if (succeeded.boolValue) {
-                            println("Linked existing user with Facebook.")
-                        }
-                    })
-                }
-                if let session = PFFacebookUtils.session() {
-                    if session.isOpen {
-                        NSLog("Session is Open")
-                        FBRequestConnection.startForMeWithCompletionHandler({ (connection: FBRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
-                            if error != nil {
-                                NSLog(error.description)
-                            } else {
-                                if (PFUser.currentUser() != nil){
-                                    //TODO: Save profile pic?
-                                    NSLog("Username and fbID being set")
-                                    PFUser.currentUser()!.username = result.name
-                                    PFUser.currentUser()!.setValue(result.objectID, forKey: "fbId")
-                                    PFUser.currentUser()!.setValue([], forKey: "Invites")
-                                    PFUser.currentUser()!.setValue([], forKey: "Attending")
-                                    PFUser.currentUser()!.save()
-                                }
+                    if !PFFacebookUtils.isLinkedWithUser(user!) {
+                        PFFacebookUtils.linkUser(user!, permissions: self.permissions, block: {
+                            (succeeded: Bool, error: NSError?) -> Void in
+                            if (succeeded.boolValue) {
+                                println("Linked existing user with Facebook.")
                             }
                         })
                     }
+                    if let session = PFFacebookUtils.session() {
+                        if session.isOpen {
+                            FBRequestConnection.startForMeWithCompletionHandler({ (connection: FBRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
+                                if error != nil {
+                                    println(error.description)
+                                } else {
+                                    //TODO: Save profile pic?
+                                    user!.username = result.name
+                                    user!.setValue(result.objectID, forKey: "fbId")
+                                    println("User signed up and logged in through Facebook: \(user)")
+                                }
+                            })
+                        }
+                    }
+                    user!.setValue([], forKey: "Invites")
+                    user!.setValue([], forKey: "Attending")
+                    user!.setValue([], forKey: "NotAttending")
+                    user!.save()
+                } else {
+                    println("User logged in through Facebook: \(user)")
                 }
                 //if self.navigationController?.visibleViewController is LoginViewController {
                 self.performSegueWithIdentifier("LoggedIn", sender: self)
@@ -77,7 +74,6 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
       //  fbLoginView.delegate = self
         println("CurrentUser",PFUser.currentUser())
         if PFUser.currentUser() != nil && PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()!){
-            println("FB session:",PFFacebookUtils.session())
             performSegueWithIdentifier("LoggedIn", sender: self)
         }
     }

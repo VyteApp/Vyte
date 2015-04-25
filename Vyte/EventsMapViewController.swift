@@ -9,11 +9,12 @@
 import UIKit
 import MapKit
 
+
 class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestConnectionDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
-    var events : [PFObject] = []
+    var events : [PFObject]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,19 +23,21 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
         mapView.showsPointsOfInterest = true
         mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
         // Do any additional setup after loading the view, typically from a nib.
-        showEventsAsPins()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        loadEventData()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "viewEventFromMap" {
-            let pin = sender as! MKAnnotation
-            let event = events.filter({(e: PFObject) in e.objectForKey("Name") as? String == pin.title}).first!
+        if segue.identifier == "viewGuestEventFromMap" {
+            let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-            vc.invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
-            vc.invitees[1] = []
-            vc.invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
-            //vc.invitees[1] = vc.invitees[2].filter({!contains(vc.invitees[0],$0)})
+        } else if segue.identifier == "viewHostEventFromMap" {
+            let event = sender as! PFObject
+            let vc = segue.destinationViewController as! HostEventViewController
+            vc.event = event
         }
     }
     
@@ -45,11 +48,17 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let pin = view.annotation
         if !pin.isEqual(mapView.userLocation as MKAnnotation){
-            self.performSegueWithIdentifier("viewEventFromMap", sender: pin)
+            let event: PFObject = events.filter({(e: PFObject) in (e["Name"] as! String) == pin.title}).first!
+            if (event["Host"] as! String) == PFUser.currentUser()?.objectId{
+                performSegueWithIdentifier("viewHostEventFromMap", sender: event)
+            }else{
+                performSegueWithIdentifier("viewGuestEventFromMap", sender: event)
+            }
         }
     }
     
-    func showEventsAsPins(){
+    func loadEventData(){
+        events = []
         let location : PFGeoPoint = PFGeoPoint(location: mapView.userLocation.location)
         println(location)
         let query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location)
@@ -61,6 +70,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
                 pin.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
                 pin.title = obj.objectForKey("Name") as! String
                 pin.subtitle = obj.objectForKey("StartTime")!.description
+                //pin.setValue(obj.objectId, forKey: "objId")
                 self.mapView.addAnnotation(pin)
                 self.events.append(obj)
             }

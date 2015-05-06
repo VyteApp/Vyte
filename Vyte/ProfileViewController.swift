@@ -52,7 +52,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         loadEventData()
     }
 
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Hosting" {
             let event = sender as! PFObject
@@ -62,7 +61,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-        }
+        } 
         
     }
     

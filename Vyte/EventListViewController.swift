@@ -34,13 +34,31 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     func loadEventData(){
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let location : PFGeoPoint = PFGeoPoint(location: appDelegate.locationManager?.location)
-        var query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 1.0)
-        events[0] = query.findObjects() as! [PFObject]
-        query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 5.0)
-        events[1] = query.findObjects()! as! [PFObject]
-        query = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 10.0)
-        events[2] = query.findObjects()! as! [PFObject]
-        nearbyEventsTableView.reloadData()
+        let query1 = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 1.0)
+        query1.findObjectsInBackgroundWithBlock({(results, error) -> Void in
+            if error == nil {
+                self.events[0] = results as! [PFObject]
+                self.nearbyEventsTableView.reloadData()
+            }
+        })
+        //events[0] = query.findObjects() as! [PFObject]
+        let query2 = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 5.0)
+        //events[1] = query.findObjects()! as! [PFObject]
+        query2.findObjectsInBackgroundWithBlock({(results, error) -> Void in
+            if error == nil {
+                self.events[1] = results as! [PFObject]
+                self.nearbyEventsTableView.reloadData()
+            }
+        })
+        let query3 = PFQuery(className: "Event").whereKey("Location", nearGeoPoint: location, withinMiles: 10.0)
+        //events[2] = query.findObjects()! as! [PFObject]
+        query3.findObjectsInBackgroundWithBlock({(results, error) -> Void in
+            if error == nil {
+                self.events[2] = results as! [PFObject]
+                self.nearbyEventsTableView.reloadData()
+            }
+        })
+        //nearbyEventsTableView.reloadData()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

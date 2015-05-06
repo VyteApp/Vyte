@@ -48,6 +48,7 @@ class EventsMapViewController: UIViewController, MKMapViewDelegate, FBRequestCon
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let pin = view.annotation
         if !pin.isEqual(mapView.userLocation as MKAnnotation){
+            //TODO: filter by objectId instead of Name
             let event: PFObject = events.filter({(e: PFObject) in (e["Name"] as! String) == pin.title}).first!
             if (event["Host"] as! String) == PFUser.currentUser()?.objectId{
                 performSegueWithIdentifier("viewHostEventFromMap", sender: event)

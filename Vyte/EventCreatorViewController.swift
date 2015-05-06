@@ -57,6 +57,7 @@ class EventCreatorViewController: UIViewController {
         event["Invites"] = invitedFriends.map({$0.objectId!})
         event["Attending"] = []
         event["NotAttending"] = []
+        event["RequestingInvite"] = []
         CLGeocoder().geocodeAddressString(locationField.text, completionHandler: {(placemarks,error) -> Void in
             if (error != nil) {
                 println("error: \(error)")

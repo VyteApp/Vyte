@@ -52,7 +52,8 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
         eventDescription.text = event.objectForKey("Description") as? String
         let acceptedInvite = !invitees[0].filter({(e: PFUser) in e.objectId! == PFUser.currentUser()!.objectId!}).isEmpty
         let rejectedInvite = !invitees[1].filter({(e: PFUser) in e.objectId! == PFUser.currentUser()!.objectId!}).isEmpty
-        if acceptedInvite || rejectedInvite{
+        let requestedInvite = contains(event["RequestingInvite"] as! [String],PFUser.currentUser()!.objectId!)
+        if acceptedInvite || rejectedInvite || requestedInvite{
             acceptInviteButton.hidden = true
             declineInviteButton.hidden = true
             requestInviteButton.hidden = true

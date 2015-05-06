@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ApproveInviteRequestsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class ManageInviteRequestsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     
     @IBOutlet weak var navigationBar: UINavigationBar!

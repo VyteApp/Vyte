@@ -49,7 +49,7 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "manageInviteRequests"{
-            let vc = segue.destinationViewController as! ApproveInviteRequestsViewController
+            let vc = segue.destinationViewController as! ManageInviteRequestsViewController
             let usersRequestingInvites = event["RequestingInvite"] as! [String]
             vc.event = event
             vc.requesting = PFUser.query()!.whereKey("objectId", containedIn: usersRequestingInvites).findObjects() as! [PFUser]

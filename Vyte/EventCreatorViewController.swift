@@ -14,9 +14,9 @@ class EventCreatorViewController: UIViewController {
     
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var locationField: UITextField!
+    @IBOutlet weak var locationField: UITextView!
     @IBOutlet weak var descriptionField: UITextView!
-    @IBOutlet weak var selectedDate: UILabel!
+    //@IBOutlet weak var selectedDate: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var inviteFriendsButton: UIButton!
     
@@ -38,7 +38,7 @@ class EventCreatorViewController: UIViewController {
         var dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
         var date = dateFormatter.stringFromDate(datePicker.date)
-        self.selectedDate.text = date
+        //self.selectedDate.text = date
     }
     
     @IBAction func cancel(sender: AnyObject) {
@@ -57,6 +57,7 @@ class EventCreatorViewController: UIViewController {
         event["Invites"] = invitedFriends.map({$0.objectId!})
         event["Attending"] = []
         event["NotAttending"] = []
+        event["RequestingInvite"] = []
         CLGeocoder().geocodeAddressString(locationField.text, completionHandler: {(placemarks,error) -> Void in
             if (error != nil) {
                 println("error: \(error)")
@@ -85,13 +86,13 @@ class EventCreatorViewController: UIViewController {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         nameField.resignFirstResponder()
-        locationField.resignFirstResponder()
+        //locationField.resignFirstResponder()
         return true;
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         nameField.resignFirstResponder()
-        locationField.resignFirstResponder()
+        //locationField.resignFirstResponder()
         self.view.endEditing(true)
     }
     

@@ -21,6 +21,8 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet var acceptInviteButton: UIButton!
     
+    @IBOutlet var requestInviteButton: UIButton!
+    
     @IBOutlet var declineInviteButton: UIButton!
 
     @IBOutlet var attendees: UITableView!
@@ -48,14 +50,27 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
         eventTime.text = event.objectForKey("StartTime")!.description
         eventLocation.text = event.objectForKey("Address") as? String
         eventDescription.text = event.objectForKey("Description") as? String
-        acceptInviteButton.hidden = true
-        declineInviteButton.hidden = true
-        for (var i=0;i<invitees[2].count;i++){
-            if invitees[2][i].objectId == PFUser.currentUser()!.objectId{
-                acceptInviteButton.hidden = false
-                declineInviteButton.hidden = false
-                invitationIndex = i
-                break
+        let acceptedInvite = !invitees[0].filter({(e: PFUser) in e.objectId! == PFUser.currentUser()!.objectId!}).isEmpty
+        let rejectedInvite = !invitees[1].filter({(e: PFUser) in e.objectId! == PFUser.currentUser()!.objectId!}).isEmpty
+        let requestedInvite = contains(event["RequestingInvite"] as! [String],PFUser.currentUser()!.objectId!)
+        if acceptedInvite || rejectedInvite || requestedInvite{
+            acceptInviteButton.hidden = true
+            declineInviteButton.hidden = true
+            requestInviteButton.hidden = true
+        }else {
+            for (var i=0;i<invitees[2].count;i++){
+                if invitees[2][i].objectId == PFUser.currentUser()!.objectId{
+                    acceptInviteButton.hidden = false
+                    declineInviteButton.hidden = false
+                    requestInviteButton.hidden = true
+                    invitationIndex = i
+                    break
+                }
+            }
+            if invitationIndex == nil{
+                acceptInviteButton.hidden = true
+                declineInviteButton.hidden = true
+                requestInviteButton.hidden = false
             }
         }
     }
@@ -72,7 +87,6 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
         event.addObject(objectId!, forKey: "Attending")
         event.save()
 
-        
         invitees[2].removeAtIndex(invitationIndex)
         invitees[0].append(PFUser.currentUser()!)
         
@@ -80,6 +94,16 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
         declineInviteButton.hidden = true
         
         attendees.reloadData()
+    }
+    
+    @IBAction func requestInvite(sender: UIButton){
+        println("Requested Invite")
+        let objectId = PFUser.currentUser()?.objectId
+        event.addObject(objectId!, forKey: "RequestingInvite")
+        event.save()
+    
+        requestInviteButton.hidden = true
+        
     }
     
     @IBAction func declineInvite(sender: UIButton){

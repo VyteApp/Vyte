@@ -14,16 +14,17 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet var profileName: UILabel!
     
-    @IBOutlet var myEventsLabel: UILabel!
+   // @IBOutlet var myEventsLabel: UILabel!
     
     @IBOutlet var myEventsTableView: UITableView!
+    
+    @IBOutlet var createEventButton: UIButton!
     
     let sections = ["Hosting","Attending","Invites"]
     
     var events : [[PFObject]] = [[],[],[]]
     
-    @IBAction func createEventButton(sender: UIButton) {
-        
+    @IBAction func createNewEvent(sender: UIButton) {
         performSegueWithIdentifier("createEventSegue", sender: self)
     }
     
@@ -32,17 +33,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        profileName.adjustsFontSizeToFitWidth = true
         profileName.text = PFUser.currentUser()!.username
         var fbSession = PFFacebookUtils.session()
         var accessToken = fbSession!.accessTokenData.accessToken
-        let url = NSURL(string: "https://graph.facebook.com/me/picture?type=large&return_ssl_resources=1&access_token="+accessToken)
+        //let url = NSURL(string: "https://graph.facebook.com/me/picture?type=large&return_ssl_resources=1&access_token="+accessToken)
+        let url = NSURL(string: "https://graph.facebook.com/me/picture?width=100&height=100&return_ssl_resources=1&access_token="+accessToken)
         let urlRequest = NSURLRequest(URL: url!)
         
         NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue.mainQueue()){ (response:NSURLResponse!, data:NSData!, error:NSError!) -> Void in
             // Display the image
             let image = UIImage(data: data)
-            self.profilePic.contentMode = UIViewContentMode.ScaleAspectFit
+            //self.profilePic.contentMode = UIViewContentMode.ScaleAspectFit
             self.profilePic.image = image
+            self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+            self.profilePic.clipsToBounds = true
+            self.profilePic.layer.borderWidth = 3.0
+            self.profilePic.layer.borderColor = UIColor.whiteColor().CGColor
         }
         myEventsTableView.delegate = self
         myEventsTableView.dataSource = self
@@ -52,7 +59,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         loadEventData()
     }
 
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Hosting" {
             let event = sender as! PFObject
@@ -62,7 +68,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             let event = sender as! PFObject
             let vc = segue.destinationViewController as! GuestEventViewController
             vc.event = event
-        }
+        } 
         
     }
     

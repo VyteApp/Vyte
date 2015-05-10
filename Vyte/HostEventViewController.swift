@@ -21,6 +21,8 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         
     @IBOutlet var attendees: UITableView!
     
+    @IBOutlet var manageInviteRequestsButton: UIButton!
+    
     var event : PFObject!
     
     let sections = ["Attending", "Not Attending", "Invited"]
@@ -40,6 +42,18 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         eventTime.text = event.objectForKey("StartTime")!.description
         eventLocation.text = event.objectForKey("Address") as? String
         eventDescription.text = event.objectForKey("Description") as? String
+    }
+    @IBAction func manageInviteRequests(sender: UIButton){
+        performSegueWithIdentifier("manageInviteRequests", sender: sender)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "manageInviteRequests"{
+            let vc = segue.destinationViewController as! ManageInviteRequestsViewController
+            let usersRequestingInvites = event["RequestingInvite"] as! [String]
+            vc.event = event
+            vc.requesting = PFUser.query()!.whereKey("objectId", containedIn: usersRequestingInvites).findObjects() as! [PFUser]
+        }
     }
     
     @IBAction func Back(sender: UIBarButtonItem) {

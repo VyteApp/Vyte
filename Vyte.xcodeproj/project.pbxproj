@@ -10,6 +10,7 @@
 		0C1AB4261AD1C02900395259 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1AB4251AD1C02900395259 /* MapKit.framework */; };
 		0C1B7C181AD1CF0B00C4B192 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B7C171AD1CF0B00C4B192 /* ProfileViewController.swift */; };
 		0C1B7C1A1AD1D3F700C4B192 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */; };
+		0C8D68591AF99480001B0611 /* ManageInviteRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D68581AF99480001B0611 /* ManageInviteRequestsViewController.swift */; };
 		0CB379111ADB35B80078AB9A /* GuestEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB379101ADB35B80078AB9A /* GuestEventViewController.swift */; };
 		0CB379131ADB35D90078AB9A /* HostEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB379121ADB35D90078AB9A /* HostEventViewController.swift */; };
 		0CC1B9E31AE2D4A40085BB6C /* InviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1B9E21AE2D4A40085BB6C /* InviteFriendsViewController.swift */; };
@@ -39,6 +40,7 @@
 		0C1AB4251AD1C02900395259 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0C1B7C171AD1CF0B00C4B192 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0C1B7C191AD1D3F700C4B192 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0C8D68581AF99480001B0611 /* ManageInviteRequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageInviteRequestsViewController.swift; sourceTree = "<group>"; };
 		0CB379101ADB35B80078AB9A /* GuestEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestEventViewController.swift; sourceTree = "<group>"; };
 		0CB379121ADB35D90078AB9A /* HostEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostEventViewController.swift; sourceTree = "<group>"; };
 		0CC1B9E21AE2D4A40085BB6C /* InviteFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				0CB379101ADB35B80078AB9A /* GuestEventViewController.swift */,
 				0CB379121ADB35D90078AB9A /* HostEventViewController.swift */,
 				0CC1B9E21AE2D4A40085BB6C /* InviteFriendsViewController.swift */,
+				0C8D68581AF99480001B0611 /* ManageInviteRequestsViewController.swift */,
 			);
 			path = Vyte;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				FF7C46411ADAF8FC001780C1 /* EventCreatorViewController.swift in Sources */,
 				0C1B7C1A1AD1D3F700C4B192 /* LoginViewController.swift in Sources */,
 				0CC59FA31AC13564001EDE1F /* EventsMapViewController.swift in Sources */,
+				0C8D68591AF99480001B0611 /* ManageInviteRequestsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

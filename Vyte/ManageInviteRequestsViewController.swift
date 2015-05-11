@@ -21,7 +21,7 @@ class ManageInviteRequestsViewController: UIViewController, UITableViewDataSourc
     
     var requesting: [PFUser]!
     
-    var invited: [PFUser]!
+    var invited: [PFUser]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -35,9 +35,11 @@ class ManageInviteRequestsViewController: UIViewController, UITableViewDataSourc
     @IBAction func done(sender: AnyObject) {
         let vc = self.presentingViewController as! HostEventViewController
         vc.invitees[2].extend(invited)
-        event.addObjectsFromArray(invited, forKey: "Invites")
-        event.removeObjectsInArray(invited, forKey: "RequestingInvite")
+        let invitedObjectIds : [String] = invited.map({$0.objectId!})
+        event.addObjectsFromArray(invitedObjectIds, forKey: "Invites")
+        event.removeObjectsInArray(invitedObjectIds, forKey: "RequestingInvite")
         event.save()
+        //TODO: Send invite notification to users
         self.dismissViewControllerAnimated(false, completion: nil)
         println("done")
         

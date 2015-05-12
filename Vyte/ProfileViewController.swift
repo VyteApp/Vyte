@@ -77,8 +77,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         let me: PFUser = PFUser.currentUser()!
         let attendingEventIDs = me.objectForKey("Attending") as! [String]
         events[1] = (PFQuery(className: "Event").whereKey("objectId", containedIn: attendingEventIDs).findObjects())! as! [PFObject]
-        let invitedEventIDs = me.objectForKey("Invites") as! [String]
-        events[2] = (PFQuery(className: "Event").whereKey("objectId", containedIn: invitedEventIDs).findObjects())! as! [PFObject]
+        //let invitedEventIDs = me.objectForKey("Invites") as! [String]
+        //events[2] = (PFQuery(className: "Event").whereKey("objectId", containedIn: invitedEventIDs).findObjects())! as! [PFObject]
+        events[2] = (PFQuery(className:"Event").whereKey("Invites", containsAllObjectsInArray: [me.objectId!]).findObjects())! as! [PFObject]
         myEventsTableView.reloadData()
     }
     

@@ -35,7 +35,7 @@
 	<string>Vyte</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Allow Vyte to use your location for displaying nearby events and for event check-in.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

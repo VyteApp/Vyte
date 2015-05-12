@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         locationManager = CLLocationManager()
         locationManager?.delegate = self
-        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.requestAlwaysAuthorization()
         locationManager?.startUpdatingLocation()
         
         Parse.setApplicationId("MhPPlRF7WKIPFJy0OemYxyjKPul1Zprsya9bDeUu", clientKey:"75LDtIaABm80CkOrg52oygHiWI5G9c0nd5UrtUUo")

@@ -22,15 +22,19 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
             if user == nil {
                 println("The user cancelled the Facebook login.")
             } else {
+                // Associate the device with a user
+                let installation = PFInstallation.currentInstallation()
+                installation["user"] = user
+                installation.saveInBackgroundWithBlock(nil)
                 if user!.isNew {
                     if !PFFacebookUtils.isLinkedWithUser(user!) {
                         PFFacebookUtils.linkUser(user!, permissions: self.permissions, block: {
                             (succeeded: Bool, error: NSError?) -> Void in
                             if (succeeded.boolValue) {
                                 // Associate the device with a user
-                                let installation = PFInstallation.currentInstallation()
-                                installation["user"] = PFUser.currentUser()
-                                installation.saveInBackgroundWithBlock(nil)
+                                //let installation = PFInstallation.currentInstallation()
+                                //installation["user"] = PFUser.currentUser()
+                                //installation.saveInBackgroundWithBlock(nil)
                                 println("Linked existing user with Facebook.")
                             }
                         })

@@ -40,6 +40,14 @@ class ManageInviteRequestsViewController: UIViewController, UITableViewDataSourc
         event.removeObjectsInArray(invitedObjectIds, forKey: "RequestingInvite")
         event.save()
         //TODO: Send invite notification to users
+        let eventName = event.objectForKey(key: "Name")
+        let host = PFUser.currentUser()!.username
+        let pushQuery = PFInstallation.query()!
+        pushQuery.whereKey("user", containedIn: invited)
+        let push = PFPush()
+        push.setQuery(pushQuery)
+        push.setMessage("\(host) invited you to the event \(eventName)")
+        push.sendPushInBackgroundWithBlock(nil)
         self.dismissViewControllerAnimated(false, completion: nil)
         println("done")
         

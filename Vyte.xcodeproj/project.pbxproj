@@ -21,6 +21,7 @@
 		0CC59FAA1AC13564001EDE1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CC59FA91AC13564001EDE1F /* Images.xcassets */; };
 		0CC59FAD1AC13564001EDE1F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CC59FAB1AC13564001EDE1F /* LaunchScreen.xib */; };
 		0CC59FB91AC13564001EDE1F /* VyteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59FB81AC13564001EDE1F /* VyteTests.swift */; };
+		0CFB4AAC1B01D07C001394CA /* CheckInListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB4AAB1B01D07C001394CA /* CheckInListViewController.swift */; };
 		B465AC2211AB6DA4DC6039C6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 007A4CF752FB60E83F7E7E90 /* libPods.a */; };
 		FF7C46411ADAF8FC001780C1 /* EventCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C46401ADAF8FC001780C1 /* EventCreatorViewController.swift */; };
 /* End PBXBuildFile section */
@@ -55,6 +56,7 @@
 		0CC59FB21AC13564001EDE1F /* VyteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VyteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC59FB71AC13564001EDE1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CC59FB81AC13564001EDE1F /* VyteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyteTests.swift; sourceTree = "<group>"; };
+		0CFB4AAB1B01D07C001394CA /* CheckInListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInListViewController.swift; sourceTree = "<group>"; };
 		5C6BEC28FD17D0BE0F648282 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B29D1119C63F692743C52D8F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FF1BEA141AE6D0BF007CB2FE /* ParsePushDevelopmentProfile.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; name = ParsePushDevelopmentProfile.mobileprovision; path = ../../../../Downloads/ParsePushDevelopmentProfile.mobileprovision; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				0CB379121ADB35D90078AB9A /* HostEventViewController.swift */,
 				0CC1B9E21AE2D4A40085BB6C /* InviteFriendsViewController.swift */,
 				0C8D68581AF99480001B0611 /* ManageInviteRequestsViewController.swift */,
+				0CFB4AAB1B01D07C001394CA /* CheckInListViewController.swift */,
 			);
 			path = Vyte;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CFB4AAC1B01D07C001394CA /* CheckInListViewController.swift in Sources */,
 				0CB379131ADB35D90078AB9A /* HostEventViewController.swift in Sources */,
 				0CC1B9E31AE2D4A40085BB6C /* InviteFriendsViewController.swift in Sources */,
 				0CC59FA51AC13564001EDE1F /* EventListViewController.swift in Sources */,

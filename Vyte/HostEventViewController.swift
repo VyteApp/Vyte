@@ -23,6 +23,8 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet var manageInviteRequestsButton: UIButton!
     
+    @IBOutlet var checkInButton: UIButton!
+    
     var event : PFObject!
     
     let sections = ["Attending", "Not Attending", "Invited"]
@@ -43,7 +45,7 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         eventLocation.text = event.objectForKey("Address") as? String
         eventDescription.text = event.objectForKey("Description") as? String
         
-        for user in invitees[0] {
+        /*for user in invitees[0] {
             let pushQuery = PFInstallation.query()!
             pushQuery.whereKey("user", equalTo: user)
             
@@ -51,7 +53,11 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
             push.setQuery(pushQuery)
             push.setMessage("You're invited to an event by \(PFUser.currentUser()!.username)")
             push.sendPushInBackgroundWithBlock(nil)
-        }
+        }*/
+    }
+    
+    @IBAction func viewCheckInList(sender: UIButton){
+        performSegueWithIdentifier("checkInList", sender: sender)
     }
     @IBAction func manageInviteRequests(sender: UIButton){
         performSegueWithIdentifier("manageInviteRequests", sender: sender)
@@ -63,6 +69,9 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
             let usersRequestingInvites = event["RequestingInvite"] as! [String]
             vc.event = event
             vc.requesting = PFUser.query()!.whereKey("objectId", containedIn: usersRequestingInvites).findObjects() as! [PFUser]
+        } else if segue.identifier == "checkInList"{
+            let vc = segue.destinationViewController as! CheckInListViewController
+            vc.event = event
         }
     }
     

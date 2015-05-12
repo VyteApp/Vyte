@@ -58,6 +58,7 @@ class EventCreatorViewController: UIViewController {
         event["Attending"] = []
         event["NotAttending"] = []
         event["RequestingInvite"] = []
+        event["CheckedIn"] = []
         CLGeocoder().geocodeAddressString(locationField.text, completionHandler: {(placemarks,error) -> Void in
             if (error != nil) {
                 println("error: \(error)")

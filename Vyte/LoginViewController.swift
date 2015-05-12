@@ -53,10 +53,26 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
                             })
                         }
                     }
+                    /*
+                    PFGeoPoint.geoPointForCurrentLocationInBackground {
+                        (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+                        if error == nil {
+                            user!.setValue(geoPoint!, forKey: "LastLocation")
+                        }else{
+                            user!.setValue(PFGeoPoint(), forKey: "LastLocation")
+                        }
+                        user!.setValue([], forKey: "Invites")
+                        user!.setValue([], forKey: "Attending")
+                        user!.setValue([], forKey: "NotAttending")
+                        user!.save()
+                    }
+                    */
+                    user!.setValue(PFGeoPoint(), forKey: "LastLocation")
                     user!.setValue([], forKey: "Invites")
                     user!.setValue([], forKey: "Attending")
                     user!.setValue([], forKey: "NotAttending")
                     user!.save()
+
                 } else {
                     println("User logged in through Facebook: \(user)")
                 }

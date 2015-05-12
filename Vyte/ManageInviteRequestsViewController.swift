@@ -40,7 +40,7 @@ class ManageInviteRequestsViewController: UIViewController, UITableViewDataSourc
         event.removeObjectsInArray(invitedObjectIds, forKey: "RequestingInvite")
         event.save()
         //TODO: Send invite notification to users
-        let eventName = event.objectForKey(key: "Name")
+        let eventName = event.objectForKey("Name") as! String
         let host = PFUser.currentUser()!.username
         let pushQuery = PFInstallation.query()!
         pushQuery.whereKey("user", containedIn: invited)

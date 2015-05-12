@@ -42,6 +42,16 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         eventTime.text = event.objectForKey("StartTime")!.description
         eventLocation.text = event.objectForKey("Address") as? String
         eventDescription.text = event.objectForKey("Description") as? String
+        
+        for user in invitees[0] {
+            let pushQuery = PFInstallation.query()!
+            pushQuery.whereKey("user", equalTo: user)
+            
+            let push = PFPush()
+            push.setQuery(pushQuery)
+            push.setMessage("You're invited to an event by \(PFUser.currentUser()!.username)")
+            push.sendPushInBackgroundWithBlock(nil)
+        }
     }
     @IBAction func manageInviteRequests(sender: UIButton){
         performSegueWithIdentifier("manageInviteRequests", sender: sender)

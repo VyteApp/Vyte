@@ -27,6 +27,10 @@ class LoginViewController: UIViewController { //, FBLoginViewDelegate {
                         PFFacebookUtils.linkUser(user!, permissions: self.permissions, block: {
                             (succeeded: Bool, error: NSError?) -> Void in
                             if (succeeded.boolValue) {
+                                // Associate the device with a user
+                                let installation = PFInstallation.currentInstallation()
+                                installation["user"] = PFUser.currentUser()
+                                installation.saveInBackgroundWithBlock(nil)
                                 println("Linked existing user with Facebook.")
                             }
                         })

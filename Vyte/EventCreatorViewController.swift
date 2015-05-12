@@ -71,6 +71,15 @@ class EventCreatorViewController: UIViewController {
             }
             event.save()
         })
+        for user in invitedFriends {
+            let pushQuery = PFInstallation.query()!
+            pushQuery.whereKey("user", equalTo: user)
+            
+            let push = PFPush()
+            push.setQuery(pushQuery)
+            push.setMessage("You're invited to \(nameField.text) by \(PFUser.currentUser()!.username)")
+            push.sendPushInBackgroundWithBlock(nil)
+        }
         self.dismissViewControllerAnimated(false, completion: nil)
         println("done")
         

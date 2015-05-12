@@ -23,14 +23,30 @@ class CheckInListViewController: UIViewController, UITableViewDataSource, UITabl
     
     var guestList: [[PFUser]] = [[],[]]
     
+    var refreshControl:UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let checkedIn: [String] = event["CheckedIn"] as! [String]
+        /*let checkedIn: [String] = event["CheckedIn"] as! [String]
         guestList[0] = PFUser.query()!.whereKey("objectId", containedIn: checkedIn).findObjects() as! [PFUser]
         var query = PFUser.query()!.whereKey("LastLocation", nearGeoPoint:event["LastLocation"] as! PFGeoPoint, withinMiles: 1.0)
         query.limit = 20
         guestList[1] = query.findObjects() as! [PFUser]
+        guestsTableView.reloadData()*/
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.guestsTableView.addSubview(refreshControl)
+    }
+    
+    func refresh(sender:AnyObject){
+        let checkedIn: [String] = event["CheckedIn"] as! [String]
+        guestList[0] = PFUser.query()!.whereKey("objectId", containedIn: checkedIn).findObjects() as! [PFUser]
+        var query = PFUser.query()!.whereKey("LastLocation", nearGeoPoint:event["Location"] as! PFGeoPoint, withinMiles: 1.0)
+        query.limit = 20
+        guestList[1] = query.findObjects() as! [PFUser]
         guestsTableView.reloadData()
+        self.refreshControl.endRefreshing()
     }
     
     @IBAction func back(sender: AnyObject) {

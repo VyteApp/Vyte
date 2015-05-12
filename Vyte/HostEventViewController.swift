@@ -33,6 +33,8 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let textCellIdentifier = "TextCell"
     
+    var refreshControl:UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
@@ -45,6 +47,11 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
         eventLocation.text = event.objectForKey("Address") as? String
         eventDescription.text = event.objectForKey("Description") as? String
         
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.attendees.addSubview(refreshControl)
+        
         /*for user in invitees[0] {
             let pushQuery = PFInstallation.query()!
             pushQuery.whereKey("user", equalTo: user)
@@ -54,6 +61,14 @@ class HostEventViewController: UIViewController, UITableViewDelegate, UITableVie
             push.setMessage("You're invited to an event by \(PFUser.currentUser()!.username)")
             push.sendPushInBackgroundWithBlock(nil)
         }*/
+    }
+    
+    func refresh(sender:AnyObject){
+        invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+        invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
+        invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+        attendees.reloadData()
+        self.refreshControl.endRefreshing()
     }
     
     @IBAction func viewCheckInList(sender: UIButton){

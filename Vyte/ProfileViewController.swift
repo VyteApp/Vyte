@@ -24,6 +24,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var events : [[PFObject]] = [[],[],[]]
     
+    var refreshControl:UIRefreshControl!
+    
     @IBAction func createNewEvent(sender: UIButton) {
         performSegueWithIdentifier("createEventSegue", sender: self)
     }
@@ -53,10 +55,17 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         myEventsTableView.delegate = self
         myEventsTableView.dataSource = self
+        loadEventData()
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.myEventsTableView.addSubview(refreshControl)
+
     }
     
-    override func viewWillAppear(animated: Bool) {
+    func refresh(sender:AnyObject){
         loadEventData()
+        self.refreshControl.endRefreshing()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -71,6 +80,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         } 
         
     }
+    
+    /*
+    override func viewWillAppear(animated: Bool) {
+        loadEventData()
+    }
+    */
     
     func loadEventData(){
         events[0] = (PFQuery(className: "Event").whereKey("Host", equalTo: PFUser.currentUser()!.objectId!).findObjects())! as! [PFObject]

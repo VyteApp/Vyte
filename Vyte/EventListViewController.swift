@@ -20,16 +20,28 @@ class EventListViewController: UIViewController, UITableViewDataSource, UITableV
     var events : [[PFObject]] = [[],[],[]]
 
     let textCellIdentifier = "TextCell"
+    
+    var refreshControl:UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         nearbyEventsTableView.delegate = self
         nearbyEventsTableView.dataSource = self
+        loadEventData()
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.nearbyEventsTableView.addSubview(refreshControl)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    func refresh(sender:AnyObject){
         loadEventData()
+        self.refreshControl.endRefreshing()
     }
+    
+    /*override func viewWillAppear(animated: Bool) {
+        loadEventData()
+    }*/
     
     func loadEventData(){
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate

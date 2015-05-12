@@ -39,6 +39,8 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
     
     let textCellIdentifier = "TextCell"
     
+    var refreshControl:UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
@@ -73,7 +75,20 @@ class GuestEventViewController: UIViewController, UITableViewDelegate, UITableVi
                 requestInviteButton.hidden = false
             }
         }
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.attendees.addSubview(refreshControl)
     }
+    
+    func refresh(sender:AnyObject){
+        invitees[0] = PFUser.query()!.whereKey("objectId", containedIn: event["Attending"] as![String]).findObjects() as! [PFUser]
+        invitees[1] = PFUser.query()!.whereKey("objectId", containedIn: event["NotAttending"] as![String]).findObjects() as! [PFUser]
+        invitees[2] = PFUser.query()!.whereKey("objectId", containedIn: event["Invites"] as![String]).findObjects() as! [PFUser]
+        attendees.reloadData()
+        self.refreshControl.endRefreshing()
+    }
+
     
     @IBAction func acceptInvite(sender: UIButton){
         println("Accepted Invite")

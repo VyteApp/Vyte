@@ -27,7 +27,7 @@ class CheckInListViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         let checkedIn: [String] = event["CheckedIn"] as! [String]
         guestList[0] = PFUser.query()!.whereKey("objectId", containedIn: checkedIn).findObjects() as! [PFUser]
-        var query = PFUser.query()!.whereKey("Location", nearGeoPoint:event["Location"] as! PFGeoPoint, withinMiles: 1.0)
+        var query = PFUser.query()!.whereKey("LastLocation", nearGeoPoint:event["LastLocation"] as! PFGeoPoint, withinMiles: 1.0)
         query.limit = 20
         guestList[1] = query.findObjects() as! [PFUser]
         guestsTableView.reloadData()

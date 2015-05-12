@@ -118,7 +118,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
-        
+        if PFUser.currentUser() != nil {
+            let geoPoint = PFGeoPoint(location: newLocation)
+            PFUser.currentUser()?.setValue(geoPoint, forKey: "LastLocation")
+        }
     }
 
 
